@@ -3,8 +3,8 @@ import java.awt.*;
 
 public class TestSpace extends GameEngine {
     private final ParticleEmitter emitter = new AlienParticleEmitter();
-    Image background = loadImage("LargeSpace.png");
-    Image player = loadImage("Spaceman.png");
+    Image background = loadImage("src/resources/LargeSpace.png");
+    Image player = loadImage("src/resources/Spaceman.png");
     int width = 600;
     int height = 840;
 

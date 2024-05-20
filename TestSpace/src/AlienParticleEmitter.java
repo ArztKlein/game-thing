@@ -4,7 +4,7 @@ public class AlienParticleEmitter extends ParticleEmitter{
 Image image;
     AlienParticleEmitter() {
         super();
-        image = GameEngine.loadImage("Alien.png");
+        image = GameEngine.loadImage("src/resources/Alien.png");
     }
     @Override
     AlienParticle newParticle() {
