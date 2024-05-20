@@ -8,11 +8,8 @@ public class TestSpace extends GameEngine {
     public static final int WIDTH  = 600;
     public static final int HEIGHT = 840;
     private BulletManager bulletManager;
-    private Timer shootingTimer;
-    private boolean shooting;
-    private final int RPM = 300;
-    private final int BULLET_INTERVAL = 200;
     private Player player;
+    private Weapon weapon; //this will need to be an array of weapons later
 
     Image background = loadImage("TestSpace/resources/LargeSpace.png");
 
@@ -23,14 +20,17 @@ public class TestSpace extends GameEngine {
     public void init() {
         setWindowSize(WIDTH, HEIGHT);
         emitter.move(300, 50);
-        this.bulletManager = new BulletManager(this.loadImage("TestSpace/resources/bullet.png"), HEIGHT);
-        this.player = new Player(WIDTH / 2, HEIGHT - 100, loadImage("TestSpace/resources/Spaceman.png"));
-        this.shooting = false;
+        this.bulletManager = new BulletManager();
+        this.player = new Player(WIDTH / 2, HEIGHT - 100, GameEngine.loadImage("TestSpace/resources/Spaceman.png"));
+
+        weapon = new MachineGun(player, bulletManager);
     }
     @Override
     public void update(double dt) {
         emitter.update((float) dt);
         player.update(dt);
+        bulletManager.updateBullets(dt);
+        weapon.update(dt);
     }
 
     @Override
@@ -44,7 +44,7 @@ public class TestSpace extends GameEngine {
 
         drawEmitter();
 
-        bulletManager.drawBullets(this.mGraphics);
+        bulletManager.drawBullets(mGraphics);
     }
 
     public void drawBackground() {
@@ -57,14 +57,15 @@ public class TestSpace extends GameEngine {
     public void drawEmitter() {
         emitter.draw(this);
     }
-
+    @Override
     public void keyPressed(KeyEvent event) {
         switch (event.getKeyCode()) {
             case (KeyEvent.VK_LEFT) -> player.moveLeft();
             case (KeyEvent.VK_RIGHT) -> player.moveRight();
+            case (KeyEvent.VK_SPACE) -> weapon.fire();
         }
     }
-
+    @Override
     public void keyReleased(KeyEvent event) {
         if (event.getKeyCode() == KeyEvent.VK_LEFT && this.player.getDirection() == -1) {
             this.player.stop();
@@ -73,5 +74,6 @@ public class TestSpace extends GameEngine {
         if (event.getKeyCode() == KeyEvent.VK_RIGHT && this.player.getDirection() == 1) {
             this.player.stop();
         }
+
     }
 }

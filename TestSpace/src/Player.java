@@ -14,7 +14,6 @@ public class Player {
     private int health;
     private final Image sprite;
     private final double speed;
-    private final int SIZE = 40;
 
     public Player(int x, int y, Image sprite) {
         this.x = x;
@@ -26,7 +25,8 @@ public class Player {
     }
 
     public void draw(TestSpace game) {
-        game.drawImage(sprite, x, y, SIZE, SIZE);
+        Graphics2D g = game.mGraphics;
+        g.drawImage(sprite, (int)x, (int)y, null);
     }
 
     public void moveLeft() {
