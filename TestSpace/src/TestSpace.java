@@ -62,18 +62,15 @@ public class TestSpace extends GameEngine {
         switch (event.getKeyCode()) {
             case (KeyEvent.VK_LEFT) -> player.moveLeft();
             case (KeyEvent.VK_RIGHT) -> player.moveRight();
-            case (KeyEvent.VK_SPACE) -> weapon.fire();
+            case (KeyEvent.VK_SPACE) -> weapon.startShooting();
         }
     }
     @Override
     public void keyReleased(KeyEvent event) {
-        if (event.getKeyCode() == KeyEvent.VK_LEFT && this.player.getDirection() == -1) {
-            this.player.stop();
+        switch (event.getKeyCode()) {
+            case (KeyEvent.VK_LEFT) -> {if(this.player.getDirection() == -1) {this.player.stop();}}
+            case (KeyEvent.VK_RIGHT) -> {if(this.player.getDirection() == 1) {this.player.stop();}}
+            case (KeyEvent.VK_SPACE) -> weapon.stopShooting();
         }
-
-        if (event.getKeyCode() == KeyEvent.VK_RIGHT && this.player.getDirection() == 1) {
-            this.player.stop();
-        }
-
     }
 }

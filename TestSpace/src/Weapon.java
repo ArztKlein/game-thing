@@ -28,10 +28,19 @@ public abstract class Weapon {
     public void update(double dt){
         x = (player.getX()+5) * dt;
         y = (player.getY()-5) * dt;
+
+        if (isShooting && availableRounds > 0) {
+            double currentTime = System.currentTimeMillis();
+            if (currentTime - lastShotTime >= 1000.0 / rateOfFire) {
+                fire();
+                lastShotTime = currentTime;
+            }
+        }
     }
     public abstract void fire();
     public boolean getIsShooting(){return isShooting;}
-    public void setShootingTrue(){isShooting = true;}
-    public void setShootingFalse(){isShooting = false;}
+    public void startShooting(){isShooting = true;
+    lastShotTime = System.currentTimeMillis();}
+    public void stopShooting(){isShooting = false;}
 
 }
