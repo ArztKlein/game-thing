@@ -1,17 +1,13 @@
-import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
-import java.security.Key;
-import java.util.Timer;
 
 public class TestSpace extends GameEngine {
     private final ParticleEmitter emitter = new AlienParticleEmitter();
     private final MainMenu mainMenu = new MainMenu(this);
     public static final int WIDTH  = 600;
     public static final int HEIGHT = 840;
-    private BulletManager bulletManager;
+    public static final BulletManager bulletManager = new BulletManager();
     private Player player;
-    private Weapon weapon; //this will need to be an array of weapons later
 
     public enum State {
         MAIN_MENU,
@@ -35,9 +31,7 @@ public class TestSpace extends GameEngine {
     public void startGame() {
         this.player = new Player(WIDTH / 2, HEIGHT - 100, GameEngine.loadImage("TestSpace/resources/Spaceman.png"));
         emitter.move(300, 50);
-        this.bulletManager = new BulletManager();
 
-        weapon = new MachineGun(player, bulletManager);
         state = State.PLAYING;
     }
 
@@ -49,7 +43,6 @@ public class TestSpace extends GameEngine {
                 emitter.update((float) dt);
                 player.update(dt);
                 bulletManager.updateBullets(dt);
-                weapon.update(dt);
             }
         }
     }
@@ -89,8 +82,8 @@ public class TestSpace extends GameEngine {
                     case (KeyEvent.VK_LEFT) -> player.moveLeft();
                     case (KeyEvent.VK_RIGHT) -> player.moveRight();
                     case (KeyEvent.VK_SPACE) -> {
-                        if (!weapon.isShooting()) { // This should be player.isShooting();
-                            weapon.startShooting();
+                        if (!player.isShooting()) {
+                            player.startShooting();
                         }
                     }
                 }
@@ -103,7 +96,7 @@ public class TestSpace extends GameEngine {
             switch (event.getKeyCode()) {
                 case (KeyEvent.VK_LEFT) -> {if(this.player.getDirection() == -1) {this.player.stop();}}
                 case (KeyEvent.VK_RIGHT) -> {if(this.player.getDirection() == 1) {this.player.stop();}}
-                case (KeyEvent.VK_SPACE) -> weapon.stopShooting();
+                case (KeyEvent.VK_SPACE) -> player.stopShooting();
             }
         }
     }
@@ -112,8 +105,8 @@ public class TestSpace extends GameEngine {
         if (state == State.PLAYING) {
             switch (event.getKeyCode()) {
                 case (KeyEvent.VK_SPACE) -> {
-                    if (!weapon.isShooting()) { // This should be player.isShooting();
-                        weapon.startShooting();
+                    if (!player.isShooting()) {
+                        player.startShooting();
                     }
                 }
             }

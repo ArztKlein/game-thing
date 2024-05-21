@@ -9,10 +9,9 @@ public abstract class Weapon {
     protected double x, y;
     protected double lastShotTime;
     protected boolean isShooting;
-    protected final BulletManager bulletManager;
     protected final Player player;
 
-    public Weapon(int rateOfFire, int damage, int ammoCapacity, Projectile projectileType, Player player, BulletManager bulletManager){
+    public Weapon(int rateOfFire, int damage, int ammoCapacity, Projectile projectileType, Player player){
         this.rateOfFire = rateOfFire;
         this.damage = damage;
         this.ammoCapacity=ammoCapacity;
@@ -20,7 +19,6 @@ public abstract class Weapon {
         this.x = player.getX()+5;
         this.y = player.getY()-5;
         this.projectileType = projectileType;
-        this.bulletManager = bulletManager;
         this.player = player;
         this.isShooting = false;
         this.lastShotTime= 0;
