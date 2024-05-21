@@ -324,7 +324,7 @@ public abstract class GameEngine implements KeyListener, MouseListener, MouseMot
 
 
 	// Changes the background Color to the color c
-	public void changeBackgroundColor(Color c) {
+	public void changeBackgroundColour(Color c) {
 		// Set background colour
 		mGraphics.setBackground(c);
 	}
@@ -356,13 +356,13 @@ public abstract class GameEngine implements KeyListener, MouseListener, MouseMot
 	}
 
 	// Changes the drawing Color to the color c
-	public void changeColor(Color c) {
+	public void changeColour(Color c) {
 		// Set colour
 		mGraphics.setColor(c);
 	}
 
 	// Changes the drawing Color to the color (red,green,blue)
-	public void changeColor(int red, int green, int blue) {
+	public void changeColour(int red, int green, int blue) {
 		// Clamp values
 		if(red < 0)   {red = 0;}
 		if(red > 255) {red = 255;}
@@ -497,6 +497,15 @@ public abstract class GameEngine implements KeyListener, MouseListener, MouseMot
 		// Draw text on the screen
 		mGraphics.setFont(new Font(font, Font.PLAIN, size));
 		mGraphics.drawString(s, (int)x, (int)y);
+	}
+
+	// Draw horizontally centred text
+	public void drawCentredText(String s, int x, int y, int size) {
+		mGraphics.setFont(new Font("Arial", Font.PLAIN, size));
+
+		int textWidth = mGraphics.getFontMetrics().stringWidth(s);
+
+		mGraphics.drawString(s, x - textWidth / 2, y);
 	}
 
 	// This function draws bold text on the screen at (x,y)
