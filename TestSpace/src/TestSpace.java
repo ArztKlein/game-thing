@@ -60,9 +60,13 @@ public class TestSpace extends GameEngine {
     @Override
     public void keyPressed(KeyEvent event) {
         switch (event.getKeyCode()) {
-            case (KeyEvent.VK_LEFT) -> player.moveLeft();
-            case (KeyEvent.VK_RIGHT) -> player.moveRight();
-            case (KeyEvent.VK_SPACE) -> weapon.startShooting();
+            case (KeyEvent.VK_LEFT): player.moveLeft(); break;
+            case (KeyEvent.VK_RIGHT): player.moveRight(); break;
+            case (KeyEvent.VK_SPACE):
+                if (!weapon.isShooting()) { // This should be player.isShooting();
+                    weapon.startShooting();
+                break;
+            }
         }
     }
     @Override

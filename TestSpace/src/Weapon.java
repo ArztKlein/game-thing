@@ -38,9 +38,11 @@ public abstract class Weapon {
         }
     }
     public abstract void fire();
-    public boolean getIsShooting(){return isShooting;}
-    public void startShooting(){isShooting = true;
-    lastShotTime = System.currentTimeMillis();}
+    public boolean isShooting(){return isShooting;}
+    public void startShooting(){
+        isShooting = true;
+        lastShotTime = System.currentTimeMillis();
+    }
     public void stopShooting(){isShooting = false;}
 
 }

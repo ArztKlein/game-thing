@@ -1,7 +1,7 @@
 public class MachineGun extends Weapon {
 
     public MachineGun(Player player, BulletManager bulletManager){
-        super(600,1,99999999, new MachineGunProjectile(player.getX()+5, player.getY()-5) , player, bulletManager );
+        super(20,1,99999999, new MachineGunProjectile(player.getX()+5, player.getY()-5) , player, bulletManager );
 
     }
 
@@ -10,7 +10,8 @@ public class MachineGun extends Weapon {
         if(availableRounds>0){
             Projectile bullet = new MachineGunProjectile(player.getX(), player.getY());
             bulletManager.addBullet(bullet);
-            availableRounds--;}
+            availableRounds--;
+        }
         //click out of ammo sound?
     }
 }
