@@ -1,14 +1,14 @@
 public class MachineGun extends Weapon {
 
     public MachineGun(Player player, BulletManager bulletManager){
-        super(20,1,99999999, new MachineGunProjectile(player.getX()+5, player.getY()-5) , player, bulletManager );
+        super(32,1,99999999, new MachineGunProjectile(player.getX()+5, player.getY()-5) , player, bulletManager );
 
     }
 
     @Override
     public void fire() {
         if(availableRounds>0){
-            Projectile bullet = new MachineGunProjectile(player.getX(), player.getY());
+            Projectile bullet = new MachineGunProjectile(player.getX()+5, player.getY()-5);
             bulletManager.addBullet(bullet);
             availableRounds--;
         }

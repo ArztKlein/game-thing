@@ -26,7 +26,7 @@ public class Player {
 
     public void draw(TestSpace game) {
         Graphics2D g = game.mGraphics;
-        g.drawImage(sprite, (int)x, (int)y, null);
+        g.drawImage(sprite, (int)x, (int)y, sprite.getWidth(null)*2, sprite.getHeight(null)*2, null);
     }
 
     public void moveLeft() {

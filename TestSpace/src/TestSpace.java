@@ -1,6 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.security.Key;
 import java.util.Timer;
 
 public class TestSpace extends GameEngine {
@@ -22,7 +23,9 @@ public class TestSpace extends GameEngine {
     Image background = loadImage("TestSpace/resources/LargeSpace.png");
 
     public static void main(String[] args) {
-        createGame(new TestSpace(), 60);
+        createGame(new TestSpace(), 60
+
+         );
     }
 
     public void init() {
@@ -101,6 +104,18 @@ public class TestSpace extends GameEngine {
                 case (KeyEvent.VK_LEFT) -> {if(this.player.getDirection() == -1) {this.player.stop();}}
                 case (KeyEvent.VK_RIGHT) -> {if(this.player.getDirection() == 1) {this.player.stop();}}
                 case (KeyEvent.VK_SPACE) -> weapon.stopShooting();
+            }
+        }
+    }
+    @Override
+    public void keyTyped(KeyEvent event){
+        if (state == State.PLAYING) {
+            switch (event.getKeyCode()) {
+                case (KeyEvent.VK_SPACE) -> {
+                    if (!weapon.isShooting()) { // This should be player.isShooting();
+                        weapon.startShooting();
+                    }
+                }
             }
         }
     }

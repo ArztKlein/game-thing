@@ -26,8 +26,8 @@ public abstract class Weapon {
         this.lastShotTime= 0;
     }
     public void update(double dt){
-        x = (player.getX()+5) * dt;
-        y = (player.getY()-5) * dt;
+        x = (player.getX()+5);
+        y = (player.getY()-5);
 
         if (isShooting && availableRounds > 0) {
             double currentTime = System.currentTimeMillis();

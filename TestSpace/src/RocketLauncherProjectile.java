@@ -3,7 +3,7 @@ import java.awt.*;
 public class RocketLauncherProjectile extends Projectile{
     private final Image sprite;
     public RocketLauncherProjectile(double x, double y){
-        super(x, y, 100, 10);
+        super(x, y, 100, 10,10);
         this.sprite = GameEngine.loadImage("TestSpace/resources/rocket.png"); //doesnt exist yet
     }
 

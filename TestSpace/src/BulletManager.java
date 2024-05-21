@@ -13,7 +13,6 @@ public class BulletManager {
     public void addBullet(Projectile projectile){
         projectiles.add(projectile);
         System.out.println(projectiles.size());
-        System.out.println();
     }
     public void updateBullets(double dt){
         Iterator<Projectile> bulletIterator = projectiles.iterator();
