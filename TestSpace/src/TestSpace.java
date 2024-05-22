@@ -30,7 +30,7 @@ public class TestSpace extends GameEngine {
 
     public void startGame() {
         this.player = new Player(WIDTH / 2, HEIGHT - 100, GameEngine.loadImage("TestSpace/resources/Spaceman.png"));
-        emitter.move((float)player.getX()+20, HEIGHT - 105);
+        emitter.move((float)player.getX()+10, HEIGHT - 105);
 
         state = State.PLAYING;
     }
@@ -71,7 +71,7 @@ public class TestSpace extends GameEngine {
     }
 
     public void drawEmitter() {
-        emitter.move((float)player.getX()+20, HEIGHT - 105);
+        emitter.move((float)player.getX()+10, HEIGHT - 105);
         emitter.draw(this);
     }
     @Override

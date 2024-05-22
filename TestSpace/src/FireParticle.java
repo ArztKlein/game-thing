@@ -14,7 +14,7 @@ public class FireParticle extends Particle {
         ge.scale(scale*2, scale*1.5);
         float angle = (float)Math.atan2(vy,vx);
         ge.rotate((180*angle)/Math.PI+90);
-        ge.changeColor(new Color(red, green, blue, alpha));
+        ge.changeColour(new Color(red, green, blue, alpha));
         ge.mGraphics.fillOval(-15, -30, 30, 60);
 
         ge.restoreLastTransform();
