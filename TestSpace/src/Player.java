@@ -6,6 +6,7 @@
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.image.ImageObserver;
+import java.util.ArrayList;
 
 public class Player {
     private final double y;
@@ -14,7 +15,8 @@ public class Player {
     private int health;
     private final Image sprite;
     private final double speed;
-    private final int SIZE = 40;
+    private ArrayList<Weapon> weapons = new ArrayList<>();
+    private Weapon selectedWeapon;
 
     public Player(int x, int y, Image sprite) {
         this.x = x;
@@ -23,10 +25,15 @@ public class Player {
         this.speed = 400.0D;
         this.health = 100;
         this.sprite = sprite;
+
+        // Give player a machine gun and select it
+        weapons.add(new MachineGun(this));
+        selectWeapon(0);
     }
 
     public void draw(TestSpace game) {
-        game.drawImage(sprite, x, y, SIZE, SIZE);
+        Graphics2D g = game.mGraphics;
+        g.drawImage(sprite, (int)x, (int)y, sprite.getWidth(null)*2, sprite.getHeight(null)*2, null);
     }
 
     public void moveLeft() {
@@ -48,6 +55,8 @@ public class Player {
         } else if (this.x < 50) {
             this.x = 50;
         }
+
+        selectedWeapon.update(dt);
     }
 
     public double getX() {
@@ -60,5 +69,22 @@ public class Player {
 
     public int getDirection() {
         return direction;
+    }
+
+    private void selectWeapon(int slot) {
+        // Make sure old weapon stops shooting first
+        if (selectedWeapon != null) stopShooting();
+        // Select
+        selectedWeapon = weapons.get(slot);
+    }
+
+    public boolean isShooting() {
+        return selectedWeapon.isShooting();
+    }
+    public void startShooting(){
+        selectedWeapon.startShooting();
+    }
+    public void stopShooting(){
+        selectedWeapon.stopShooting();
     }
 }

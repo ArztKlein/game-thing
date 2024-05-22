@@ -2,33 +2,32 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Timer;
 
 public class BulletManager {
-    private Image bulletSprite;
-    private List<Bullet> bullets;
-    private int screenHeight;
+    private List<Projectile> projectiles;
 
-    public BulletManager(Image bulletSprite, int screenHeight){
-        this.bulletSprite = bulletSprite;
-        this.screenHeight = screenHeight;
-        bullets = new ArrayList<>();
+    public BulletManager(){
+        projectiles = new ArrayList<>();
     }
-    public void addBullet(double x, double y){
-        bullets.add(new Bullet(x, y, bulletSprite));
+    public void addBullet(Projectile projectile){
+        projectiles.add(projectile);
+        System.out.println(projectiles.size());
     }
     public void updateBullets(double dt){
-        Iterator<Bullet> bulletIterator = bullets.iterator();
+        Iterator<Projectile> bulletIterator = projectiles.iterator();
         while(bulletIterator.hasNext()){
-            Bullet bullet = bulletIterator.next();
-            bullet.updateBullet(dt);
-            if(!bullet.onScreen()){
+            Projectile projectile = bulletIterator.next();
+            projectile.update(dt);
+            if(projectile.getY()<250){
                 bulletIterator.remove();
             }
         }
     }
+
     public void drawBullets(Graphics2D g){
-        for(Bullet b: bullets){
-            g.drawImage(bulletSprite, (int)b.getX(), (int)b.getY(), null);
+        for(Projectile b: projectiles){
+            b.draw(g);
         }
     }
 }
