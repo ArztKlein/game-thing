@@ -2,6 +2,7 @@ import java.awt.*;
 
 public class Alien {
     private double x, y;
+    private int radius;
     private double speedY;
     private Image sprite;
     private boolean chasingPlayer = false;
@@ -13,11 +14,14 @@ public class Alien {
     public Alien(double x, double y, Image sprite) {
         this.x = x;
         this.y = y;
+        this.radius = 15; //sprite.width(null)/2
         this.sprite = sprite;
         this.speedY = DROP_SPEED;
         this.laneOffsetX = Math.random() * 60 - 30; // Random offset to create a tighter group
     }
-
+    public double getX(){return this.x;}
+    public double getY(){return this.y;}
+    public int getRadius(){return this.radius;}
     public void update(double dt, Player player) {
         if (!chasingPlayer) {
             y += speedY * dt;

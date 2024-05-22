@@ -2,6 +2,7 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 
 public class TestSpace extends GameEngine {
+    private final ParticleEmitter emitter = new FireParticleEmitter();
     private final MainMenu mainMenu = new MainMenu(this);
     public static final int WIDTH  = 600;
     public static final int HEIGHT = 840;
@@ -30,6 +31,7 @@ public class TestSpace extends GameEngine {
 
     public void startGame() {
         this.player = new Player(WIDTH / 2, HEIGHT - 100, GameEngine.loadImage("TestSpace/resources/Spaceman.png"));
+        emitter.move((float)player.getX()+10, HEIGHT - 105);
         state = State.PLAYING;
         alienManager = new AlienManager(loadImage("TestSpace/resources/Alien.png"), player); // Initialise the AlienManager
     }
@@ -40,7 +42,8 @@ public class TestSpace extends GameEngine {
             case MAIN_MENU -> mainMenu.update();
             case PLAYING -> {
                 player.update(dt);
-                bulletManager.updateBullets(dt);
+                emitter.update((float) dt);
+                bulletManager.updateBullets(dt, alienManager);
                 alienManager.update(dt); // Update the aliens
                 // Handle alien spawning
                 timeSinceLastAlienSpawn += dt; // Accumulate time for alien spawning
@@ -62,7 +65,8 @@ public class TestSpace extends GameEngine {
             case PLAYING -> {
                 drawBackground();
                 player.draw(this);
-                bulletManager.drawBullets(mGraphics);
+                drawEmitter();
+                bulletManager.drawBullets(this);
                 alienManager.draw(this.mGraphics);
             }
         }
@@ -75,6 +79,11 @@ public class TestSpace extends GameEngine {
         restoreLastTransform();
     }
 
+    public void drawEmitter() {
+        emitter.move((float)player.getX()+10, HEIGHT - 105);
+        emitter.draw(this);
+    }
+    
     @Override
     public void keyPressed(KeyEvent event) {
         switch (state) {
@@ -87,6 +96,7 @@ public class TestSpace extends GameEngine {
                         if (!player.isShooting()) {
                             player.startShooting();
                         }
+                        emitter.emitterFrequency = 75;
                     }
                 }
             }
@@ -98,9 +108,10 @@ public class TestSpace extends GameEngine {
             switch (event.getKeyCode()) {
                 case (KeyEvent.VK_LEFT) -> {if(this.player.getDirection() == -1) {this.player.stop();}}
                 case (KeyEvent.VK_RIGHT) -> {if(this.player.getDirection() == 1) {this.player.stop();}}
-                case (KeyEvent.VK_SPACE) -> player.stopShooting();
-                case (KeyEvent.VK_UP) -> player.selectNextWeapon();
-                case (KeyEvent.VK_DOWN) -> player.selectPrevWeapon();
+                case (KeyEvent.VK_SPACE) -> {
+                    player.stopShooting();
+                    emitter.emitterFrequency = 0;
+                }
             }
         }
     }

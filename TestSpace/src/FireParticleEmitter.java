@@ -3,7 +3,7 @@ public class FireParticleEmitter extends ParticleEmitter{
         super();
     }
     @Override
-    FireParticle newParticle() {
+    Particle newParticle() {
         return new FireParticle();
     }
 }

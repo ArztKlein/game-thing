@@ -19,7 +19,6 @@ public class AlienManager {
         Alien alien = new Alien(spawnX, 0, alienSprite);
         aliens.add(alien);
     }
-
     public void update(double dt) {
         Iterator<Alien> iterator = aliens.iterator();
         while (iterator.hasNext()) {
@@ -30,7 +29,7 @@ public class AlienManager {
             }
         }
     }
-
+    public List<Alien> getAliens(){return this.aliens;}
     public void draw(Graphics2D g) {
         for (Alien alien : aliens) {
             alien.draw(g);
