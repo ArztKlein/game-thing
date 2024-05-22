@@ -17,6 +17,7 @@ public class Player {
     private final double speed;
     private ArrayList<Weapon> weapons = new ArrayList<>();
     private Weapon selectedWeapon;
+    private int selectedWeaponIndex;
 
     public Player(int x, int y, Image sprite) {
         this.x = x;
@@ -28,12 +29,16 @@ public class Player {
 
         // Give player a machine gun and select it
         weapons.add(new MachineGun(this));
-        selectWeapon(0);
+//        selectWeapon(0);
+        // Give player a flamethrower and select it
+        weapons.add(new Flamethrower(this));
+        selectWeapon(1);
     }
 
     public void draw(TestSpace game) {
         Graphics2D g = game.mGraphics;
         g.drawImage(sprite, (int)x, (int)y, sprite.getWidth(null)*2, sprite.getHeight(null)*2, null);
+        selectedWeapon.draw(game);
     }
 
     public void moveLeft() {
@@ -76,6 +81,7 @@ public class Player {
         if (selectedWeapon != null) stopShooting();
         // Select
         selectedWeapon = weapons.get(slot);
+        selectedWeaponIndex = slot;
     }
 
     public boolean isShooting() {
@@ -86,5 +92,19 @@ public class Player {
     }
     public void stopShooting(){
         selectedWeapon.stopShooting();
+    }
+
+    public void selectNextWeapon() {
+        // Increment counter
+        int nextIndex = (selectedWeaponIndex + 1) % weapons.size();
+        selectWeapon(nextIndex);
+    }
+
+    public void selectPrevWeapon() {
+        // Decrement counter
+        int prevIndex = selectedWeaponIndex - 1;
+        if (prevIndex == -1) prevIndex = weapons.size() - 1;
+        // Select
+        selectWeapon(prevIndex);
     }
 }

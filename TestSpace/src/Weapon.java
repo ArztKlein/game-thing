@@ -5,20 +5,18 @@ public abstract class Weapon {
     protected int damage;
     protected int ammoCapacity;
     protected int availableRounds;
-    protected Projectile projectileType;
     protected double x, y;
     protected double lastShotTime;
     protected boolean isShooting;
     protected final Player player;
 
-    public Weapon(int rateOfFire, int damage, int ammoCapacity, Projectile projectileType, Player player){
+    public Weapon(int rateOfFire, int damage, int ammoCapacity, Player player){
         this.rateOfFire = rateOfFire;
         this.damage = damage;
         this.ammoCapacity=ammoCapacity;
         this.availableRounds=ammoCapacity;
         this.x = player.getX()+5;
         this.y = player.getY()-5;
-        this.projectileType = projectileType;
         this.player = player;
         this.isShooting = false;
         this.lastShotTime= 0;
@@ -41,6 +39,10 @@ public abstract class Weapon {
         isShooting = true;
         lastShotTime = System.currentTimeMillis();
     }
-    public void stopShooting(){isShooting = false;}
+    public void stopShooting(){
+        isShooting = false;
+    }
+
+    public void draw(TestSpace game){}
 
 }

@@ -49,9 +49,10 @@ public class MainMenu {
     }
 
     private void drawHelpMenu() {
-        game.drawCentredText("Press arrow keys to move the player.", TestSpace.WIDTH / 2, playButtonY, 25);
-        game.drawCentredText("Press space to use weapons.", TestSpace.WIDTH / 2, playButtonY + 40, 25);
-        game.drawCentredText("TBA", TestSpace.WIDTH / 2, playButtonY + 80, 25);
+        game.drawCentredText("Press horizontal arrow keys to move the player.", TestSpace.WIDTH / 2, playButtonY, 25);
+        game.drawCentredText("Press vertical arrow keys to change weapons.", TestSpace.WIDTH / 2, playButtonY + 40, 25);
+        game.drawCentredText("Press space to use weapons.", TestSpace.WIDTH / 2, playButtonY + 80, 25);
+        game.drawCentredText("TBA", TestSpace.WIDTH / 2, playButtonY + 120, 25);
 
         game.drawCentredText("Press enter to exit", TestSpace.WIDTH / 2, quitButtonY + 100, 35);
     }

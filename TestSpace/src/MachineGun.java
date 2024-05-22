@@ -1,7 +1,7 @@
 public class MachineGun extends Weapon {
 
     public MachineGun(Player player){
-        super(32,1,99999999, new MachineGunProjectile(player.getX()+5, player.getY()-5) , player );
+        super(32,1,99999999, player );
 
     }
 
