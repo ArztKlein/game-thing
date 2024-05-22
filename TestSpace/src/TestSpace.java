@@ -65,7 +65,7 @@ public class TestSpace extends GameEngine {
             case PLAYING -> {
                 drawBackground();
                 player.draw(this);
-//                drawEmitter();
+                drawEmitter();
                 bulletManager.drawBullets(mGraphics);
                 alienManager.draw(this.mGraphics);
             }
@@ -79,10 +79,11 @@ public class TestSpace extends GameEngine {
         restoreLastTransform();
     }
 
-//    public void drawEmitter() {
-//        emitter.move((float)player.getX()+10, HEIGHT - 105);
-//        emitter.draw(this);
-//    }
+    public void drawEmitter() {
+        emitter.move((float)player.getX()+10, HEIGHT - 105);
+        emitter.draw(this);
+    }
+    
     @Override
     public void keyPressed(KeyEvent event) {
         switch (state) {
