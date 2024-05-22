@@ -7,11 +7,12 @@ public abstract class ParticleEmitter {
     float sweepSpeed;
     float sweepRandom;
     ArrayList<Particle> particles;
-    float emitterAngle;
+    float emitterAngle=0;
     float startX, startY;
     float angle = 0f;
     float time = 0f;
     float lastEmitTime = 0;
+
 
     ParticleEmitter(int nParticles, int emitterFrequency, float sweepAngle, float sweepSpeed, float sweepRandom) {
         this.nParticles = nParticles;
@@ -23,7 +24,7 @@ public abstract class ParticleEmitter {
     }
 
     ParticleEmitter() {
-        this(120,100,.09f, 40, .1f);
+        this(50,0,.2f, 6, 0.01f);
     }
 
     abstract Particle newParticle();
@@ -71,4 +72,5 @@ public abstract class ParticleEmitter {
             }
         }
     }
+
 }
