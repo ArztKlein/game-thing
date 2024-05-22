@@ -27,12 +27,11 @@ public class Player {
         this.health = 100;
         this.sprite = sprite;
 
-        // Give player a machine gun and select it
+        // Give weapons
         weapons.add(new MachineGun(this));
-//        selectWeapon(0);
-        // Give player a flamethrower and select it
         weapons.add(new Flamethrower(this));
-        selectWeapon(1);
+        // Select the machine gun
+        selectWeapon(0);
     }
 
     public void draw(TestSpace game) {
