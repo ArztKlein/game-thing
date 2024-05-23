@@ -4,7 +4,7 @@ import java.awt.image.ImageObserver;
 public class MachineGunProjectile extends Projectile{
     private final Image sprite;
     public MachineGunProjectile(double x, double y){
-        super(x, y, 0,-750, 38, 1);
+        super(x, y, 0,-400, 1, 1);
         this.sprite = GameEngine.loadImage("TestSpace/resources/bullet.png");
         this.radius = sprite.getWidth(null)/2;
     }
@@ -15,6 +15,14 @@ public class MachineGunProjectile extends Projectile{
     }
     @Override
     public void draw(GameEngine g) {
-        g.drawImage(sprite,(int)x,(int)y, (int) (sprite.getWidth(null) *0.5),(int) (sprite.getHeight(null) *0.5));
+        g.drawImage(sprite,(int)x,(int)y, (int) (sprite.getWidth(null) ),(int) (sprite.getHeight(null) ));
+    }
+
+    @Override
+    public boolean checkCollision(Alien enemy) {
+        double dx = x - enemy.getX();
+        double dy = y - enemy.getY();
+        double distance = Math.sqrt(dx * dx + dy * dy);
+        return distance < radius + enemy.getRadius();
     }
 }

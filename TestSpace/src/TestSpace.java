@@ -10,7 +10,7 @@ public class TestSpace extends GameEngine {
     private Player player;
     private AlienManager alienManager;
     private double timeSinceLastAlienSpawn = 0; // Handle time accumulation for alien spawning
-    private final double ALIEN_SPAWN_INTERVAL = 0.5; // Adjust this value to control alien spawning rate
+    private final double ALIEN_SPAWN_INTERVAL = 0.05; // Adjust this value to control alien spawning rate
 
     public enum State {
         MAIN_MENU,
@@ -30,7 +30,7 @@ public class TestSpace extends GameEngine {
     }
 
     public void startGame() {
-        this.player = new Player(WIDTH / 2, HEIGHT - 100, GameEngine.loadImage("TestSpace/resources/Spaceman.png"));
+        this.player = new Player(WIDTH / 2, HEIGHT - 75, GameEngine.loadImage("TestSpace/resources/Spaceman.png"));
         emitter.move((float)player.getX()+10, HEIGHT - 105);
         state = State.PLAYING;
         alienManager = new AlienManager(loadImage("TestSpace/resources/Alien.png"), player); // Initialise the AlienManager
@@ -73,10 +73,7 @@ public class TestSpace extends GameEngine {
     }
 
     public void drawBackground() {
-        saveCurrentTransform();
-        scale(1.2, 1.2);
         drawImage(background, 0,0);
-        restoreLastTransform();
     }
 
     public void drawEmitter() {

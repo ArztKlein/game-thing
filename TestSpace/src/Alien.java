@@ -1,23 +1,33 @@
 import java.awt.*;
 
 public class Alien {
-    private double x, y;
-    private int radius;
-    private double speedY;
-    private Image sprite;
-    private boolean chasingPlayer = false;
-    private static final double TARGET_Y = 150;
-    private static final double DROP_SPEED = 50; // Adjust to control the drop speed of aliens
-    private static final double CHASE_SPEED = 100; // Adjust to control the speed at which aliens follow the player
-    private double laneOffsetX; // Offset to keep the formation
+    protected double x, y;
+    protected int radius;
+    protected int hitpoints;
+    protected double speedY;
+    protected Image sprite;
+    protected boolean chasingPlayer = false;
+    protected static final double TARGET_Y = 375;
+    protected static final double DROP_SPEED = 35; // Adjust to control the drop speed of aliens
+    protected static final double CHASE_SPEED = 80; // Adjust to control the speed at which aliens follow the player
+    protected double laneOffsetX; // Offset to keep the formation
 
     public Alien(double x, double y, Image sprite) {
         this.x = x;
         this.y = y;
+        this.hitpoints = 3;
         this.radius = 15; //sprite.width(null)/2
         this.sprite = sprite;
         this.speedY = DROP_SPEED;
         this.laneOffsetX = Math.random() * 60 - 30; // Random offset to create a tighter group
+    }
+    public int getHitpoints(){return this.hitpoints;}
+    public boolean setHitpoints(int damage){
+        int alienHP = getHitpoints();
+        alienHP -= damage;
+        if(alienHP<=0){return false;}
+        this.hitpoints = alienHP;
+        return true;
     }
     public double getX(){return this.x;}
     public double getY(){return this.y;}

@@ -19,11 +19,6 @@ public abstract class Projectile
    public abstract void draw(GameEngine g);
 
    public double getY(){return y;}
-
-    public boolean checkCollision(Alien enemy){
-        double dx = x - enemy.getX();
-        double dy = y - enemy.getY();
-        double distance = Math.sqrt(dx * dx + dy * dy);
-        return distance < radius + enemy.getRadius();
-    }
+    public int getDamage(){return this.damage;}
+    public abstract boolean checkCollision(Alien enemy);
 }

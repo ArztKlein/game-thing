@@ -30,8 +30,9 @@ public class Player {
         // Give weapons
         weapons.add(new MachineGun(this));
         weapons.add(new Flamethrower(this));
+        weapons.add(new RocketLauncher(this));
         // Select the machine gun
-        selectWeapon(0);
+        selectWeapon(2);
     }
 
     public void draw(TestSpace game) {

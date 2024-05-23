@@ -15,7 +15,9 @@ public class AlienManager {
     }
 
     public void spawnAlien() {
-        double spawnX = Math.random() * TestSpace.WIDTH; // Spawn randomly across the top width of the screen
+        double spawnWidth = 400;
+        double offset = (TestSpace.WIDTH -spawnWidth)/2;
+        double spawnX =  offset + (Math.random() * spawnWidth); // Spawn randomly across the top width of the screen
         Alien alien = new Alien(spawnX, 0, alienSprite);
         aliens.add(alien);
     }

@@ -2,7 +2,7 @@ public class Flamethrower extends Weapon {
     private ParticleEmitter emitter;
 
     public Flamethrower(Player player){
-        super(32,1,99999999, player );
+        super(32,1,player );
         emitter = new FireParticleEmitter();
         emitter.move((float)player.getX()+10, TestSpace.HEIGHT - 105);
     }

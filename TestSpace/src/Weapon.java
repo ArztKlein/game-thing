@@ -2,7 +2,6 @@ import java.util.Timer;
 
 public abstract class Weapon {
     protected int rateOfFire;
-    protected int damage;
     protected int ammoCapacity;
     protected int availableRounds;
     protected double x, y;
@@ -10,9 +9,8 @@ public abstract class Weapon {
     protected boolean isShooting;
     protected final Player player;
 
-    public Weapon(int rateOfFire, int damage, int ammoCapacity, Player player){
+    public Weapon(int rateOfFire, int ammoCapacity, Player player){
         this.rateOfFire = rateOfFire;
-        this.damage = damage;
         this.ammoCapacity=ammoCapacity;
         this.availableRounds=ammoCapacity;
         this.x = player.getX()+5;

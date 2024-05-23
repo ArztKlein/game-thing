@@ -27,12 +27,13 @@ public class BulletManager {
             while (alienIterator.hasNext()) {
                 Alien alien = alienIterator.next();
                 if (projectile.checkCollision(alien)){
-                    alienIterator.remove();
-                    collisionDetected = true;
-                    break;
+                    if(!alien.setHitpoints(projectile.getDamage()))      //This is what when a collision occurs
+                    {alienIterator.remove();}                       //delete the alien
+                    collisionDetected = true;                       //set flag to delete bullet
+                    break;                                          //break because each bullet only has one collision before being destroyed but each bullet/collision needs to be checked.
                 }
             }
-            if (collisionDetected || projectile.getY() < 250) {
+            if (collisionDetected || projectile.getY() < 250) {     //delete bullet
                 bulletIterator.remove();
             }
         }
