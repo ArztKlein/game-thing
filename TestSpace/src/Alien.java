@@ -69,7 +69,8 @@ public class Alien {
         return alienBounds.intersects(playerBounds);
     }
 
-    public boolean hasReachedPlayerHeight(Player player) {
-        return y >= player.getY();
+    public boolean hasReachedPlayerHeight(double playerY) {
+        return y >= playerY;
     }
+
 }

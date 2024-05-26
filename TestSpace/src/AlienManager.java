@@ -26,11 +26,20 @@ public class AlienManager {
         while (iterator.hasNext()) {
             Alien alien = iterator.next();
             alien.update(dt, player);
-            if (alien.checkCollision(player) || alien.hasReachedPlayerHeight(player)) {
+
+            // Check collision with player
+            if (alien.checkCollision(player)) {
+                player.reduceHealth(10); // Reduce player's health
+                iterator.remove();
+            }
+
+            // Check if the alien has reached the player's height
+            if (alien.hasReachedPlayerHeight(player.getY())) {
                 iterator.remove();
             }
         }
     }
+
     public List<Alien> getAliens(){return this.aliens;}
     public void draw(Graphics2D g) {
         for (Alien alien : aliens) {

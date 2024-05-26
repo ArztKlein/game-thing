@@ -1,8 +1,3 @@
-//
-// Source code recreated from a .class file by IntelliJ IDEA
-// (powered by FernFlower decompiler)
-//
-
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.image.ImageObserver;
@@ -18,6 +13,7 @@ public class Player {
     private ArrayList<Weapon> weapons = new ArrayList<>();
     private Weapon selectedWeapon;
     private int selectedWeaponIndex;
+    private int playerHealth;
 
     public Player(int x, int y, Image sprite) {
         this.x = x;
@@ -26,6 +22,7 @@ public class Player {
         this.speed = 400.0D;
         this.health = 100;
         this.sprite = sprite;
+        this.playerHealth = 100;
 
         // Give weapons
         weapons.add(new MachineGun(this));
@@ -107,4 +104,24 @@ public class Player {
         // Select
         selectWeapon(prevIndex);
     }
+    public int getHealth() {
+        return health;
+    }
+
+    // Updated method name and variable name
+    public void reduceHealth(int damage) {
+        playerHealth -= damage;
+    }
+    public boolean isPlayerDead(){
+        return playerHealth <= 0;
+    }
+    public void resetHealth(){
+        playerHealth = 100;
+    }
+    public int getPlayerHealth(){
+        return playerHealth;
+    }
+
+
+
 }

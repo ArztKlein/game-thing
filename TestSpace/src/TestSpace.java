@@ -39,19 +39,28 @@ public class TestSpace extends GameEngine {
     @Override
     public void update(double dt) {
         switch (state) {
-            case MAIN_MENU -> mainMenu.update();
-            case PLAYING -> {
+            case MAIN_MENU:
+                mainMenu.update();
+                break;
+            case PLAYING:
                 player.update(dt);
                 emitter.update((float) dt);
                 bulletManager.updateBullets(dt, alienManager);
-                alienManager.update(dt); // Update the aliens
-                // Handle alien spawning
-                timeSinceLastAlienSpawn += dt; // Accumulate time for alien spawning
-                if (timeSinceLastAlienSpawn >= ALIEN_SPAWN_INTERVAL) { // Check if it's time to spawn a new alien
-                    alienManager.spawnAlien(); // Spawn a new alien
-                    timeSinceLastAlienSpawn -= ALIEN_SPAWN_INTERVAL; // Reset the time accumulator
+                alienManager.update(dt);
+
+                // Check if player's health is zero and return to main menu if true
+                if (player.isPlayerDead()) {
+                    state = State.MAIN_MENU;
+                    // Reset player's health when returning to main menu
+                    player.resetHealth();
                 }
-            }
+
+                timeSinceLastAlienSpawn += dt;
+                if (timeSinceLastAlienSpawn >= ALIEN_SPAWN_INTERVAL) {
+                    alienManager.spawnAlien();
+                    timeSinceLastAlienSpawn -= ALIEN_SPAWN_INTERVAL;
+                }
+                break;
         }
     }
 
@@ -61,26 +70,41 @@ public class TestSpace extends GameEngine {
         clearBackground(WIDTH, HEIGHT);
 
         switch (state) {
-            case MAIN_MENU -> mainMenu.draw();
-            case PLAYING -> {
+            case MAIN_MENU:
+                mainMenu.draw();
+                break;
+            case PLAYING:
                 drawBackground();
                 player.draw(this);
+                drawPlayerHealth();
                 drawEmitter();
                 bulletManager.drawBullets(this);
                 alienManager.draw(this.mGraphics);
-            }
+                break;
+
+
         }
+
     }
 
+    private void drawPlayerHealth() {
+        drawText(20, 40, "Health: " + player.getPlayerHealth());
+
+    }
+
+
     public void drawBackground() {
+        saveCurrentTransform();
+        scale(1.2,1.2);
         drawImage(background, 0,0);
+        restoreLastTransform();
     }
 
     public void drawEmitter() {
         emitter.move((float)player.getX()+10, HEIGHT - 105);
         emitter.draw(this);
     }
-    
+
     @Override
     public void keyPressed(KeyEvent event) {
         switch (state) {
