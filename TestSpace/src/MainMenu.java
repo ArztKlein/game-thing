@@ -12,8 +12,10 @@ public class MainMenu {
     private String state = MAIN_MENU;
 
     private int cursorIndex = 0;
+    private static final int CURSOR_X_CENTRE = 120;
     private int cursorY = 0;
-    private static final int CURSOR_X = 120;
+    private double cursorX = CURSOR_X_CENTRE;
+    private double time = 0;
 
     private final int BUTTON_SIZE = 40;
 
@@ -57,8 +59,9 @@ public class MainMenu {
         game.drawCentredText("Press enter to exit", TestSpace.WIDTH / 2, quitButtonY + 100, 35);
     }
 
-    public void update() {
-
+    public void update(double dt) {
+        time += dt;
+        cursorX = CURSOR_X_CENTRE + Math.sin(time * 5) * 5;
     }
 
     public void keyPressed(KeyEvent e) {
@@ -106,8 +109,6 @@ public class MainMenu {
     }
 
     public void drawCursor() {
-        int y = cursorY - BUTTON_SIZE / 4 - 4;
-
-        game.drawCentredText(">", CURSOR_X, y,40);
+        game.drawCentredText(">", (int) cursorX, cursorY,40);
     }
 }

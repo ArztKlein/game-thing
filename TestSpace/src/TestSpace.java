@@ -38,7 +38,7 @@ public class TestSpace extends GameEngine {
     public void update(double dt) {
         switch (state) {
             case MAIN_MENU:
-                mainMenu.update();
+                mainMenu.update(dt);
                 break;
             case PLAYING:
                 player.update(dt);
