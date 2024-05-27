@@ -29,7 +29,7 @@ public class Player {
         weapons.add(new Flamethrower(this));
         weapons.add(new RocketLauncher(this));
         // Select the machine gun
-        selectWeapon(2);
+        selectWeapon(0);
     }
 
     public void draw(TestSpace game) {

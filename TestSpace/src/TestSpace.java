@@ -2,7 +2,6 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 
 public class TestSpace extends GameEngine {
-    private final ParticleEmitter emitter = new FireParticleEmitter();
     private final MainMenu mainMenu = new MainMenu(this);
     public static final int WIDTH  = 600;
     public static final int HEIGHT = 840;
@@ -31,7 +30,6 @@ public class TestSpace extends GameEngine {
 
     public void startGame() {
         this.player = new Player(WIDTH / 2, HEIGHT - 75, GameEngine.loadImage("TestSpace/resources/Spaceman.png"));
-        emitter.move((float)player.getX()+10, HEIGHT - 105);
         state = State.PLAYING;
         alienManager = new AlienManager(loadImage("TestSpace/resources/Alien.png"), player); // Initialise the AlienManager
     }
@@ -44,7 +42,6 @@ public class TestSpace extends GameEngine {
                 break;
             case PLAYING:
                 player.update(dt);
-                emitter.update((float) dt);
                 bulletManager.updateBullets(dt, alienManager);
                 alienManager.update(dt);
 
@@ -77,19 +74,14 @@ public class TestSpace extends GameEngine {
                 drawBackground();
                 player.draw(this);
                 drawPlayerHealth();
-                drawEmitter();
                 bulletManager.drawBullets(this);
                 alienManager.draw(this.mGraphics);
                 break;
-
-
         }
-
     }
 
     private void drawPlayerHealth() {
         drawText(20, 40, "Health: " + player.getPlayerHealth());
-
     }
 
 
@@ -98,11 +90,6 @@ public class TestSpace extends GameEngine {
         scale(1.2,1.2);
         drawImage(background, 0,0);
         restoreLastTransform();
-    }
-
-    public void drawEmitter() {
-        emitter.move((float)player.getX()+10, HEIGHT - 105);
-        emitter.draw(this);
     }
 
     @Override
@@ -117,8 +104,9 @@ public class TestSpace extends GameEngine {
                         if (!player.isShooting()) {
                             player.startShooting();
                         }
-                        emitter.emitterFrequency = 75;
                     }
+                    case (KeyEvent.VK_UP) -> player.selectNextWeapon();
+                    case (KeyEvent.VK_DOWN) -> player.selectPrevWeapon();
                 }
             }
         }
@@ -131,7 +119,6 @@ public class TestSpace extends GameEngine {
                 case (KeyEvent.VK_RIGHT) -> {if(this.player.getDirection() == 1) {this.player.stop();}}
                 case (KeyEvent.VK_SPACE) -> {
                     player.stopShooting();
-                    emitter.emitterFrequency = 0;
                 }
             }
         }

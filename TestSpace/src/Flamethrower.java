@@ -18,12 +18,12 @@ public class Flamethrower extends Weapon {
     public void update(double dt) {
         super.update(dt);
         emitter.update((float) dt);
+        emitter.move((float)player.getX()+10, TestSpace.HEIGHT - 105);
     }
 
     @Override
     public void draw(TestSpace game) {
         super.draw(game);
-        emitter.move((float)player.getX()+10, TestSpace.HEIGHT - 105);
         emitter.draw(game);
     }
 
