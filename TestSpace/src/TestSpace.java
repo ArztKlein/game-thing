@@ -81,6 +81,7 @@ public class TestSpace extends GameEngine {
     }
 
     private void drawPlayerHealth() {
+        changeColour(white);
         drawText(20, 40, "Health: " + player.getPlayerHealth());
     }
 
