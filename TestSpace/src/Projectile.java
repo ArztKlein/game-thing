@@ -7,18 +7,19 @@ public abstract class Projectile
     protected int damage;
     protected int radius;
     public Projectile(double x, double y, int radius, double velY, double accelY, int damage){
-        this.x =x;
-        this.y=y;
+        this.x = x;
+        this.y = y;
         this.radius = radius;
-        this.velY=velY;
-        this.accelY= accelY;
-        this.damage= damage;
+        this.velY = velY;
+        this.accelY = accelY;
+        this.damage = damage;
     }
-   public abstract void update(double dt);
 
-   public abstract void draw(GameEngine g);
+    public abstract void update(double dt);
 
-   public double getY(){return y;}
+    public abstract void draw(GameEngine g);
+
+    public double getY(){return y;}
     public int getDamage(){return this.damage;}
     public abstract boolean checkCollision(Alien enemy);
 }
