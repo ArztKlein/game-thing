@@ -9,8 +9,6 @@ public class TestSpace extends GameEngine {
     public static final BulletManager bulletManager = new BulletManager();
     private Player player;
     private AlienManager alienManager;
-    private double timeSinceLastAlienSpawn = 0; // Handle time accumulation for alien spawning
-    private final double ALIEN_SPAWN_INTERVAL = 0.05; // Adjust this value to control alien spawning rate
     public static JTextField name;
     public String scoreName;
     private final Score score = new Score();
@@ -65,12 +63,6 @@ public class TestSpace extends GameEngine {
                     state = State.GAME_OVER;
                     // Reset player's health when returning to main menu
                     player.resetHealth();
-                }
-
-                timeSinceLastAlienSpawn += dt;
-                if (timeSinceLastAlienSpawn >= ALIEN_SPAWN_INTERVAL) {
-                    alienManager.spawnAlien();
-                    timeSinceLastAlienSpawn -= ALIEN_SPAWN_INTERVAL;
                 }
                 break;
             case GAME_OVER:
