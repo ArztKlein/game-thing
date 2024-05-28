@@ -10,7 +10,7 @@ public class TestSpace extends GameEngine {
     private Player player;
     private AlienManager alienManager;
     private double timeSinceLastAlienSpawn = 0; // Handle time accumulation for alien spawning
-    private final double ALIEN_SPAWN_INTERVAL = 0.3; // Adjust this value to control alien spawning rate
+    private final double ALIEN_SPAWN_INTERVAL = 0.05; // Adjust this value to control alien spawning rate
     public static JTextField name;
     public String scoreName;
     private final Score score = new Score();
