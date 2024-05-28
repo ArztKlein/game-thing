@@ -28,7 +28,12 @@ public class BulletManager {
                 Alien alien = alienIterator.next();
                 if (projectile.checkCollision(alien)){
                     if(!alien.setHitpoints(projectile.getDamage()))      //This is what when a collision occurs
-                    {alienIterator.remove();}                       //delete the alien
+                    {
+                        alienIterator.remove();                     //delete the alien
+                        Score.score++;                              //Raises the players score when an alien is killed
+                        Player.getAmmo();                      // Checks to see if the alien drops ammo for the player
+
+                    }
                     collisionDetected = true;                       //set flag to delete bullet
                     break;                                          //break because each bullet only has one collision before being destroyed but each bullet/collision needs to be checked.
                 }
@@ -44,5 +49,4 @@ public class BulletManager {
             b.draw(g);
         }
     }
-
 }

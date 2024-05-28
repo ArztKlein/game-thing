@@ -10,9 +10,9 @@ public class Player {
     private int health;
     private final Image sprite;
     private final double speed;
-    private ArrayList<Weapon> weapons = new ArrayList<>();
+    private static ArrayList<Weapon> weapons = new ArrayList<>();
     private Weapon selectedWeapon;
-    private int selectedWeaponIndex;
+    private static int selectedWeaponIndex;
     private int playerHealth;
 
     public Player(int x, int y, Image sprite) {
@@ -122,6 +122,32 @@ public class Player {
         return playerHealth;
     }
 
+    public static int getSelectedWeapon() {return selectedWeaponIndex;}
 
 
+    public static void getAmmo() {
+        Weapon flame = weapons.get(1);
+        Weapon rocket = weapons.get(2);
+
+        double flameCap = 0.165;
+        double rocketCap = 0.33;
+        double rand = Math.random();
+
+        if ((0 < rand) && (rand < flameCap)) {
+            if (flame.availableRounds < flame.ammoCapacity) {
+                flame.availableRounds++;
+            }
+        } else if ((flameCap < rand) && (rand < rocketCap)) {
+            if (rocket.availableRounds < rocket.ammoCapacity) {
+                rocket.availableRounds++;
+            }
+        }
+    }
+
+    //Clears the weapons after the game to be reset
+    public static void clearWeapons() {
+        weapons.remove(2);
+        weapons.remove(1);
+        weapons.remove(0);
+    }
 }

@@ -1,3 +1,4 @@
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 
@@ -10,10 +11,16 @@ public class TestSpace extends GameEngine {
     private AlienManager alienManager;
     private double timeSinceLastAlienSpawn = 0; // Handle time accumulation for alien spawning
     private final double ALIEN_SPAWN_INTERVAL = 0.05; // Adjust this value to control alien spawning rate
+    public static JTextField name;
+    public String scoreName;
+    private final Score score = new Score();
+    public boolean gotName, settingScore;
+    boolean isWeapon;
 
     public enum State {
         MAIN_MENU,
-        PLAYING
+        PLAYING,
+        GAME_OVER
     }
 
     private State state = State.MAIN_MENU;
@@ -26,6 +33,13 @@ public class TestSpace extends GameEngine {
 
     public void init() {
         setWindowSize(WIDTH, HEIGHT);
+
+        //init score
+        Score.score = 0;
+        gotName = false;
+        name = new JTextField();
+
+        isWeapon = true;
     }
 
     public void startGame() {
@@ -38,6 +52,7 @@ public class TestSpace extends GameEngine {
     public void update(double dt) {
         switch (state) {
             case MAIN_MENU:
+                init();
                 mainMenu.update(dt);
                 break;
             case PLAYING:
@@ -47,7 +62,7 @@ public class TestSpace extends GameEngine {
 
                 // Check if player's health is zero and return to main menu if true
                 if (player.isPlayerDead()) {
-                    state = State.MAIN_MENU;
+                    state = State.GAME_OVER;
                     // Reset player's health when returning to main menu
                     player.resetHealth();
                 }
@@ -56,6 +71,14 @@ public class TestSpace extends GameEngine {
                 if (timeSinceLastAlienSpawn >= ALIEN_SPAWN_INTERVAL) {
                     alienManager.spawnAlien();
                     timeSinceLastAlienSpawn -= ALIEN_SPAWN_INTERVAL;
+                }
+                break;
+            case GAME_OVER:
+                manageScore();
+                if (isWeapon) {
+                    Player.clearWeapons();
+                    isWeapon = false;
+                    state = State.MAIN_MENU;
                 }
                 break;
         }
@@ -76,21 +99,68 @@ public class TestSpace extends GameEngine {
                 drawPlayerHealth();
                 bulletManager.drawBullets(this);
                 alienManager.draw(this.mGraphics);
+                drawPlayerHealth();
+                drawScore();
+                break;
+            case GAME_OVER:
+                drawBackground();
+                drawGameOver();
                 break;
         }
     }
 
     private void drawPlayerHealth() {
         changeColour(white);
-        drawText(20, 40, "Health: " + player.getPlayerHealth());
+        saveCurrentTransform();
+        changeColour(white);
+        drawText(440, 30, "Health: " + player.getPlayerHealth(), 30);
+        restoreLastTransform();
     }
-
 
     public void drawBackground() {
         saveCurrentTransform();
         scale(1.2,1.2);
         drawImage(background, 0,0);
         restoreLastTransform();
+    }
+
+    public void drawGameOver() {
+        saveCurrentTransform();
+        changeColour(white);
+        drawCentredText("Game Over", WIDTH / 2, 200, 80);
+        drawCentredText("Score: " + Score.score, WIDTH / 2, 300, 60);
+        restoreLastTransform();
+    }
+
+    public void drawScore() {
+        changeColour(white);
+        drawText(10,30, "Score: " + Score.score, 30);
+    }
+
+    public void manageScore() {
+        if (score.checkScore()) {
+            if (gotName) {
+                score.updateHighScore(scoreName);
+                state = State.MAIN_MENU;
+            } else {
+                enterName();
+            }
+        }
+    }
+
+    public void enterName() {
+        name.setBounds(200, 360, 200, 30);
+        mPanel.add(name);
+        name.requestFocus();
+        if (settingScore) {
+            scoreName = name.getText();
+            if (scoreName.isEmpty()) {
+                scoreName = "Anon";
+            }
+            gotName = true;
+            mPanel.remove(name);
+        }
+        settingScore = false;
     }
 
     @Override
@@ -108,6 +178,11 @@ public class TestSpace extends GameEngine {
                     }
                     case (KeyEvent.VK_UP) -> player.selectNextWeapon();
                     case (KeyEvent.VK_DOWN) -> player.selectPrevWeapon();
+                }
+            }
+            case GAME_OVER -> {
+                if(event.getKeyCode() == KeyEvent.VK_ENTER) {
+                    settingScore = true;
                 }
             }
         }

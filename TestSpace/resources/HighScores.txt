@@ -1,0 +1,10 @@
+10;Agent 47
+9;Baldur
+8;Crash
+7;Donkey Kong
+6;Eggman
+5;Flamingo
+4;Goomba
+3;Hawke
+2;Iggy Koopa
+1;Johnny Cage

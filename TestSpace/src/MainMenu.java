@@ -3,11 +3,13 @@ import java.awt.event.KeyEvent;
 public class MainMenu {
 
     private static final int playButtonY = 200;
-    private static final int helpButtonY = 280;
-    private static final int quitButtonY = 360;
+    private static final int scoreButtonY = 280;
+    private static final int helpButtonY = 360;
+    private static final int quitButtonY = 440;
     private static final int BUTTONS_AMOUNT = 3;
 
     private final String MAIN_MENU = "main menu";
+    private final String SCORE_MENU = "score menu";
     private final String HELP_MENU = "help menu";
     private String state = MAIN_MENU;
 
@@ -34,6 +36,7 @@ public class MainMenu {
         // Draw buttons
         switch (state) {
             case MAIN_MENU -> drawMainMenu();
+            case SCORE_MENU -> drawScoreMenu();
             case HELP_MENU -> drawHelpMenu();
         }
     }
@@ -42,8 +45,10 @@ public class MainMenu {
         float multiplier = (cursorIndex == 0 ) ? 1.2f : 1; // Make the selected button appear bigger
         game.drawCentredText("Play", TestSpace.WIDTH / 2, playButtonY, (int) (BUTTON_SIZE * multiplier));
         multiplier = (cursorIndex == 1 ) ? 1.2f : 1;
-        game.drawCentredText("Help", TestSpace.WIDTH / 2, helpButtonY, (int) (BUTTON_SIZE * multiplier));
+        game.drawCentredText("High Scores", TestSpace.WIDTH / 2, scoreButtonY, (int) (BUTTON_SIZE * multiplier));
         multiplier = (cursorIndex == 2 ) ? 1.2f : 1;
+        game.drawCentredText("Help", TestSpace.WIDTH / 2, helpButtonY, (int) (BUTTON_SIZE * multiplier));
+        multiplier = (cursorIndex == 3 ) ? 1.2f : 1;
         game.drawCentredText("Quit", TestSpace.WIDTH / 2, quitButtonY, (int) (BUTTON_SIZE * multiplier));
 
         // Draw cursor
@@ -57,6 +62,17 @@ public class MainMenu {
         game.drawCentredText("TBA", TestSpace.WIDTH / 2, playButtonY + 120, 25);
 
         game.drawCentredText("Press enter to exit", TestSpace.WIDTH / 2, quitButtonY + 100, 35);
+    }
+
+    private void drawScoreMenu() {
+        int count = Score.count;
+        if (count > 10) {
+            count = 10;
+        }
+        for (int i = 0; i < count; i++) {
+            game.drawText(200, 200+(50*i), i+1 + ") ", 25);
+            game.drawText(250, 200+(50*i) , Score.getHighScore(i) + " : " + Score.getName(i), 25);
+        }
     }
 
     public void update(double dt) {
@@ -88,10 +104,13 @@ public class MainMenu {
                 case 0: // Play
                     game.startGame();
                     break;
-                case 1: // Help
+                case 1: // High Scores
+                    state = SCORE_MENU;
+                    break;
+                case 2: // Help
                     state = HELP_MENU;
                     break;
-                case 2: // Quit game
+                case 3: // Quit game
                     System.exit(0);
                     break;
             }
@@ -103,8 +122,9 @@ public class MainMenu {
     private void calcCursorY() {
         switch (cursorIndex) {
             case (0) -> cursorY = playButtonY;
-            case (1) -> cursorY = helpButtonY;
-            case (2) -> cursorY = quitButtonY;
+            case (1) -> cursorY = scoreButtonY;
+            case (2) -> cursorY = helpButtonY;
+            case (3) -> cursorY = quitButtonY;
         }
     }
 
