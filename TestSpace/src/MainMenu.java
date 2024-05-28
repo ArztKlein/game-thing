@@ -6,7 +6,7 @@ public class MainMenu {
     private static final int scoreButtonY = 280;
     private static final int helpButtonY = 360;
     private static final int quitButtonY = 440;
-    private static final int BUTTONS_AMOUNT = 3;
+    private static final int BUTTONS_AMOUNT = 4;
 
     private final String MAIN_MENU = "main menu";
     private final String SCORE_MENU = "score menu";
