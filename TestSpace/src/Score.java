@@ -42,13 +42,19 @@ public class Score {
         }
     }
 
+    //Checks if the players score is higher than the lowest score on the list
     public boolean checkScore() {
         return score > getHighScore(count);
     }
 
     public void updateHighScore(String scoreName) {
+        //Sets the players score as the lowest on the list
         setHighScore(score, scoreName);
+
+        //Orders the High Score list to correctly place the players score and name
         orderHighScores();
+
+        //Writes the new High Score list to the HighScores file
         try {
             updateFile();
         } catch (IOException e) {

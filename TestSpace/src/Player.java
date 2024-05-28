@@ -122,16 +122,13 @@ public class Player {
         return playerHealth;
     }
 
-    public static int getSelectedWeapon() {return selectedWeaponIndex;}
-
-
     public static void getAmmo() {
         Weapon flame = weapons.get(1);
         Weapon rocket = weapons.get(2);
 
-        double flameCap = 0.165;
-        double rocketCap = 0.33;
-        double rand = Math.random();
+        double flameCap = 0.165; // sets the highest number for flame and lowest for rocket
+        double rocketCap = 0.33; // sets the highest number for rocket, any number above this will not give ammo
+        double rand = Math.random(); // creates a random number between 0 and 1.0
 
         if ((0 < rand) && (rand < flameCap)) {
             if (flame.availableRounds < flame.ammoCapacity) {

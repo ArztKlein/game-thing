@@ -12,7 +12,6 @@ public class TestSpace extends GameEngine {
     public static JTextField name;
     public String scoreName;
     private final Score score = new Score();
-    public boolean gotName, settingScore;
     boolean isWeapon;
 
     public enum State {
@@ -21,7 +20,15 @@ public class TestSpace extends GameEngine {
         GAME_OVER
     }
 
+    public enum ScoreState {
+        CHECK,
+        SET_SCORE,
+        NULL
+    }
+
     private State state = State.MAIN_MENU;
+
+    private ScoreState scoreState;
 
     Image background = loadImage("TestSpace/resources/LargeSpace.png");
 
@@ -34,7 +41,7 @@ public class TestSpace extends GameEngine {
 
         //init score
         Score.score = 0;
-        gotName = false;
+        scoreState = ScoreState.CHECK;
         name = new JTextField();
 
         isWeapon = true;
@@ -66,12 +73,11 @@ public class TestSpace extends GameEngine {
                 }
                 break;
             case GAME_OVER:
-                manageScore();
                 if (isWeapon) {
                     Player.clearWeapons();
                     isWeapon = false;
-                    state = State.MAIN_MENU;
                 }
+                manageScore();
                 break;
         }
     }
@@ -130,13 +136,17 @@ public class TestSpace extends GameEngine {
     }
 
     public void manageScore() {
-        if (score.checkScore()) {
-            if (gotName) {
-                score.updateHighScore(scoreName);
-                state = State.MAIN_MENU;
-            } else {
-                enterName();
+        switch (scoreState) {
+            case CHECK -> {
+                if (score.checkScore()) {
+                    enterName();
+                }
             }
+            case SET_SCORE -> {
+                score.updateHighScore(scoreName);
+                scoreState = ScoreState.NULL;
+            }
+            case NULL -> state = State.MAIN_MENU;
         }
     }
 
@@ -144,15 +154,6 @@ public class TestSpace extends GameEngine {
         name.setBounds(200, 360, 200, 30);
         mPanel.add(name);
         name.requestFocus();
-        if (settingScore) {
-            scoreName = name.getText();
-            if (scoreName.isEmpty()) {
-                scoreName = "Anon";
-            }
-            gotName = true;
-            mPanel.remove(name);
-        }
-        settingScore = false;
     }
 
     @Override
@@ -174,7 +175,12 @@ public class TestSpace extends GameEngine {
             }
             case GAME_OVER -> {
                 if(event.getKeyCode() == KeyEvent.VK_ENTER) {
-                    settingScore = true;
+                    scoreName = name.getText();
+                    if (scoreName.isEmpty()) {
+                        scoreName = "Anon";
+                    }
+                    mPanel.remove(name);
+                    scoreState = ScoreState.SET_SCORE;
                 }
             }
         }
