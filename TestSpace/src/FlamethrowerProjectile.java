@@ -1,4 +1,7 @@
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Iterator;
 
 public class FlamethrowerProjectile extends Projectile {
     private final static int SPEED = 200;
@@ -35,11 +38,26 @@ public class FlamethrowerProjectile extends Projectile {
     }
 
     @Override
-    public double checkCollision(Alien enemy) {
-        double dx = x - enemy.getX();
-        double dy = y - enemy.getY();
-        return Math.sqrt(dx * dx + dy * dy);
+    public boolean checkCollision(AlienManager alienManager){
+        List<Alien> deadAliens = new ArrayList<>();
+
+        for (Alien alien : alienManager.getAliens()) {
+            if (getDistance(alien) < radius) {
+                alien.setHitpoints(damage);
+                if (alien.getHitpoints() == 0) {
+                    deadAliens.add(alien);
+                }
+            }
+        }
+        if (!deadAliens.isEmpty()) {
+            alienManager.getAliens().removeAll(deadAliens);
+            Score.score += deadAliens.size();
+            Player.getAmmo();
+            return true;
+        }
+        return false;
     }
+
 
     double smoothStep(double x) {
         if (x < 0) {x = 0;}

@@ -17,85 +17,31 @@ public class BulletManager {
 
     public void updateBullets(double dt, AlienManager alienManager){
         Iterator<Projectile> bulletIterator = projectiles.iterator();
-        List<Alien>deadAliens = new ArrayList<>();
-        Projectile projectile;
 
         while(bulletIterator.hasNext()) {
-            projectile = bulletIterator.next();
+            Projectile projectile = bulletIterator.next();
             projectile.update(dt);
-            boolean collisionDetected = false;
-            Iterator<Alien> alienIterator = alienManager.getAliens().iterator();
 
-            while(alienIterator.hasNext()) {
-                if (projectile instanceof RocketLauncherProjectile) {
-                    //rocket collisions
-                    Alien alien = alienIterator.next();
-                    if (projectile.checkCollision(alien) < projectile.getRadius()) {
-                        alien.setHitpoints(projectile.getDamage());
-                        if (alien.getHitpoints() == 0) {
-                            deadAliens.add(alien);
-                        }
-                        collisionDetected = true;
-                    }
-                }
-
-                if (projectile instanceof MachineGunProjectile) {
-                    //machine gun collisions
-                    Alien alien = alienIterator.next();
-                    if (projectile.checkCollision(alien) < projectile.getRadius()) {
-                        alien.setHitpoints(projectile.getDamage());
-                        if (alien.getHitpoints() == 0) {
-                            alienIterator.remove();
-                            Score.score++;                              //Raises the players score when an alien is killed
-                            Player.getAmmo();
-                        }
-                        collisionDetected = true;
-                    }
-                }
-                if (projectile instanceof FlamethrowerProjectile) {
-                    Alien alien = alienIterator.next();
-                    if (projectile.checkCollision(alien) < projectile.getRadius()) {
-                        alien.setHitpoints(projectile.getDamage());
-                        if (alien.getHitpoints() == 0) {
-                            alienIterator.remove();
-                            Score.score++;                              //Raises the players score when an alien is killed
-                            Player.getAmmo();
-                        }
-                        collisionDetected = true;
-                    }
-                }
-                if (projectile instanceof RocketLauncherProjectile && collisionDetected) {
-                    for (Alien nearbyAlien : alienManager.getAliens()) {
-                        if (projectile.checkCollision(nearbyAlien) < 3 * projectile.getRadius()) {
-                            nearbyAlien.setHitpoints(projectile.getDamage());
-                            if (nearbyAlien.getHitpoints() == 0) {
-                                deadAliens.add(nearbyAlien);
-                            }
-                        }
-                    }
-                }
-            }
             if (projectile instanceof RocketLauncherProjectile) {
-                if(collisionDetected){
-                    alienManager.getAliens().removeAll(deadAliens);
-                    Score.score += deadAliens.size(); // Raises the players score for all the aliens killed
-                    Player.getAmmo();
-                    bulletIterator.remove();
+                //rocket collisions
+                if (projectile.checkCollision(alienManager)) {
+                     bulletIterator.remove();
+                } else if (projectile.getY() < 0) {
+                     bulletIterator.remove();
                 }
-                else if(projectile.getY() < 0){
+            }
+            if (projectile instanceof MachineGunProjectile) {
+                //machine gun collisions
+                if (projectile.checkCollision(alienManager)) {
+                    bulletIterator.remove();
+                } else if (projectile.getY() < 250) {
                     bulletIterator.remove();
                 }
             }
-            else if (projectile instanceof MachineGunProjectile) {
-                if(collisionDetected){
+            if (projectile instanceof FlamethrowerProjectile) {
+                if (projectile.checkCollision(alienManager)) {
                     bulletIterator.remove();
-                }
-                else if(projectile.getY() < 150){
-                    bulletIterator.remove();
-                }
-            }
-            else if (projectile instanceof FlamethrowerProjectile){
-                if(projectile.getY() < 30 || ((FlamethrowerProjectile) projectile).hasDisappeared()){
+                } else if (projectile.getY() < 250) {
                     bulletIterator.remove();
                 }
             }
