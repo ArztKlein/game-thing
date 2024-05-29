@@ -16,10 +16,10 @@ public class LargeAlien extends Alien {
         super(x, y, sprite);
         this.hitpoints = LARGE_ALIEN_HEALTH;
         this.speedY = LARGE_ALIEN_DROP_SPEED;
-        this.radius = (int) (radius * SCALE_FACTOR); // adjust radius for collision detection
         for (int i = 0; i < 4; i++) {
             laSprites[i] = GameEngine.subImage(sprite, i*29, 0, 29, 37);
         }
+        this.radius = (int) (laSprites[0].getWidth(null) * SCALE_FACTOR); // adjust radius for collision detection
     }
 
     @Override
