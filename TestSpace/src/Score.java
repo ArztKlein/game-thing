@@ -44,7 +44,7 @@ public class Score {
 
     //Checks if the players score is higher than the lowest score on the list
     public boolean checkScore() {
-        return score > getHighScore(count);
+        return score > getHighScore(count-1);
     }
 
     public void updateHighScore(String scoreName) {
@@ -63,7 +63,7 @@ public class Score {
     }
 
     public void setHighScore(int score, String name) {
-        if (count < 10) {
+        if (count < 9) {
             highScores[count+1] = score;
             names[count+1] = name;
             count++;
@@ -94,7 +94,11 @@ public class Score {
     public void updateFile() throws IOException {
         Writer fileWriter = new FileWriter("TestSpace/resources/HighScores.txt", false);
         for (i = 0; i < count; i++) {
-            line = highScores[i] + ";" + names[i] + "\n";
+            line = "";
+            if (i != 0) {
+                line += "\n";
+            }
+            line += highScores[i] + ";" + names[i];
             fileWriter.append(line);
         }
         fileWriter.close();
