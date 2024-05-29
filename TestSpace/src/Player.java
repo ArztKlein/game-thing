@@ -15,7 +15,7 @@ public class Player {
     private static int selectedWeaponIndex;
     private int playerHealth;
 
-    public Player(int x, int y, Image sprite) {
+    public Player(int x, int y, Image sprite, GameEngine g) {
         this.x = x;
         this.y = y;
         this.direction = 0;
@@ -26,9 +26,9 @@ public class Player {
         this.playerHealth = 100;
 
         // Give weapons
-        weapons.add(new MachineGun(this));
-        weapons.add(new Flamethrower(this));
-        weapons.add(new RocketLauncher(this));
+        weapons.add(new MachineGun(this, g));
+        weapons.add(new Flamethrower(this, g));
+        weapons.add(new RocketLauncher(this, g));
         // Select the machine gun
         selectWeapon(0);
     }

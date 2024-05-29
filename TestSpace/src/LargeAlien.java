@@ -12,8 +12,8 @@ public class LargeAlien extends Alien {
     private int blinkCount = 0;
     private int blinkGap = 0;
 
-    public LargeAlien(double x, double y, Image sprite) {
-        super(x, y, sprite);
+    public LargeAlien(double x, double y, Image sprite, GameEngine g) {
+        super(x, y, sprite,g);
         this.hitpoints = LARGE_ALIEN_HEALTH;
         this.speedY = LARGE_ALIEN_DROP_SPEED;
         for (int i = 0; i < 4; i++) {

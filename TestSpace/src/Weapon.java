@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Timer;
 
 public abstract class Weapon {
@@ -8,16 +9,19 @@ public abstract class Weapon {
     protected double lastShotTime;
     protected boolean isShooting;
     protected Player player;
-
-    public Weapon(Player player){
+    private GameEngine gameEngine;
+    GameEngine.AudioClip weaponFired;
+    public Weapon(Player player, GameEngine g, String gunFiredFileName){
         this.player = player;
-        x = player.getX()+5;
-        y = player.getY()-5;
+        gameEngine = g;
+        weaponFired = g.loadAudio(gunFiredFileName);
+        x = player.getX();
+        y = player.getY();
         this.lastShotTime= 0;
     }
     public void update(double dt){
-        x = (player.getX()+5);
-        y = (player.getY()-5);
+        x = player.getX();
+        y = player.getY();
 
         if (isShooting && availableRounds > 0) {
             double currentTime = System.currentTimeMillis();
@@ -25,10 +29,12 @@ public abstract class Weapon {
 
             if (lastShotTime == 0) { // Fire immediately on the first shot
                 fire();
+                gameEngine.playAudio(weaponFired);
                 lastShotTime = currentTime;
             }
             else if (timeSinceLastShot >= 1000.0 / rateOfFire) {
                 fire();
+                gameEngine.playAudio(weaponFired);
                 lastShotTime = currentTime;
             }
         }

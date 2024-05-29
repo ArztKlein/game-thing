@@ -16,8 +16,10 @@ public class AlienManager {
     private int aliensKilled;
     private final double ALIEN_SPAWN_INTERVAL = 0.1;
     private double timeSinceLastAlienSpawn;
+    private GameEngine gameEngine;
 
-    public AlienManager(Image alienSprite, Image largeAlienChart, Player player) {
+    public AlienManager(Image alienSprite, Image largeAlienChart, Player player, GameEngine g) {
+        gameEngine = g;
         this.alienSprite = alienSprite;
         this.aliens = new ArrayList<>();
         this.player = player;
@@ -38,11 +40,11 @@ public class AlienManager {
 
         // Modified to spawn different types of aliens based on the wave
         if (wave >= 5 && Math.random() < 0.1) {
-            alien = new LargeAlien(spawnX, 0, largeAlienChart);
+            alien = new LargeAlien(spawnX, 0, largeAlienChart, gameEngine);
         } else if (wave >= 3 && Math.random() < 0.3) {
-            alien = new MediumAlien(spawnX, 0, alienSprite);
+            alien = new MediumAlien(spawnX, 0, alienSprite, gameEngine);
         } else {
-            alien = new Alien(spawnX, 0, alienSprite);
+            alien = new Alien(spawnX, 0, alienSprite, gameEngine);
         }
         aliens.add(alien);
         aliensSpawned++;

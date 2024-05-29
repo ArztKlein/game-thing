@@ -1,6 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 
 public class TestSpace extends GameEngine {
     private final MainMenu mainMenu = new MainMenu(this);
@@ -14,7 +15,11 @@ public class TestSpace extends GameEngine {
     private final Score score = new Score();
     boolean isWeapon;
     AudioClip backgroundMusic;
-
+    AudioClip machineGunFired;
+    AudioClip rocketLauncherFired;
+    AudioClip flamethrowerFired;
+    AudioClip enemyHit;
+    static ArrayList<AudioClip> sfx;
     public enum State {
         MAIN_MENU,
         PLAYING,
@@ -47,15 +52,15 @@ public class TestSpace extends GameEngine {
         isWeapon = true;
 
         backgroundMusic = loadAudio("TestSpace/resources/bensound-scifi.wav");
-        startAudioLoop(backgroundMusic);
+        startAudioLoop(backgroundMusic, 0.25f);
     }
 
     public void startGame() {
-        this.player = new Player(WIDTH / 2, HEIGHT - 75, GameEngine.loadImage("TestSpace/resources/Spaceman.png"));
+        this.player = new Player(WIDTH / 2, HEIGHT - 75, GameEngine.loadImage("TestSpace/resources/Spaceman.png"), this);
         state = State.PLAYING;
 
         // Initialize the AlienManager
-        alienManager = new AlienManager(loadImage("TestSpace/resources/Alien.png"), loadImage("TestSpace/resources/LargeAlien.png"), player);
+        alienManager = new AlienManager(loadImage("TestSpace/resources/Alien.png"), loadImage("TestSpace/resources/LargeAlien.png"), player, this);
     }
 
     @Override

@@ -6,8 +6,8 @@ public class MediumAlien extends Alien {
     private static final double MEDIUM_ALIEN_CHASE_SPEED = 60;
     private static final double SCALE_FACTOR = 2.0;
 
-    public MediumAlien(double x, double y, Image sprite) {
-        super(x, y, sprite);
+    public MediumAlien(double x, double y, Image sprite, GameEngine g) {
+        super(x, y, sprite, g);
         this.hitpoints = MEDIUM_ALIEN_HEALTH;
         this.speedY = MEDIUM_ALIEN_DROP_SPEED;
         this.radius = (int) (radius * SCALE_FACTOR); // adjust radius for collision detection

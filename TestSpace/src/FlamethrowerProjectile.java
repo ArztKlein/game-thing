@@ -43,6 +43,7 @@ public class FlamethrowerProjectile extends Projectile {
 
         for (Alien alien : alienManager.getAliens()) {
             if (getDistance(alien) < radius) {
+                alien.playHitSound();
                 alien.setHitpoints(damage);
                 if (alien.getHitpoints() == 0) {
                     deadAliens.add(alien);

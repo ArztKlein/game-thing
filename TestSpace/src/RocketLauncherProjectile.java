@@ -7,7 +7,7 @@ public class RocketLauncherProjectile extends Projectile{
     public RocketLauncherProjectile(double x, double y){
         super(x, y);
         this.sprite = GameEngine.loadImage("TestSpace/resources/bullet.png"); //doesnt exist yet
-        radius = sprite.getWidth(null)/2;
+        radius = sprite.getWidth(null);
         velY = -50;
         accelY = 700;
         damage = 3;
@@ -30,6 +30,8 @@ public class RocketLauncherProjectile extends Projectile{
 
         for (Alien alien : alienManager.getAliens()) {
             if (getDistance(alien) < radius) {
+                alien.playHitSound();
+                //Explosion Sound and Image
                 alien.setHitpoints(damage);
                 if (alien.getHitpoints() == 0) {
                     deadAliens.add(alien);

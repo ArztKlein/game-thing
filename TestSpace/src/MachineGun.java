@@ -1,7 +1,7 @@
 public class MachineGun extends Weapon {
 
-    public MachineGun(Player player){
-        super(player);
+    public MachineGun(Player player, GameEngine g){
+        super(player, g, "TestSpace/resources/MachineGunFired.wav");
         rateOfFire = 10;
         ammoCapacity = 999999999;
         availableRounds = 999999999;

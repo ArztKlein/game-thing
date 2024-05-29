@@ -2,8 +2,8 @@ public class Flamethrower extends Weapon {
     private double time;
     private final static int SWEEP_SPEED = 10;
 
-    public Flamethrower(Player player){
-        super(player);
+    public Flamethrower(Player player, GameEngine g){
+        super(player, g, "TestSpace/resources/FlamethrowerFired.wav");
         rateOfFire = 100;
         ammoCapacity = 1;
         availableRounds=1;

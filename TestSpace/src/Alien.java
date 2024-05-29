@@ -11,8 +11,9 @@ public class Alien {
     protected static final double DROP_SPEED = 35; // Adjust to control the drop speed of aliens
     protected static final double CHASE_SPEED = 80; // Adjust to control the speed at which aliens follow the player
     protected double laneOffsetX; // Offset to keep the formation
-
-    public Alien(double x, double y, Image sprite) {
+    private GameEngine gameEngine;
+    public Alien(double x, double y, Image sprite, GameEngine g) {
+        gameEngine = g;
         this.x = x;
         this.y = y;
         this.hitpoints = 3;
@@ -73,5 +74,8 @@ public class Alien {
     public boolean hasReachedPlayerHeight(double playerY) {
         return y >= playerY;
     }
-
+    public void playHitSound(){
+        GameEngine.AudioClip hit=  gameEngine.loadAudio("TestSpace/resources/EnemyHit.wav");
+        gameEngine.playAudio(hit);
+    }
 }

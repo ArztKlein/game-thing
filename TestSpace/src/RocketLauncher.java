@@ -1,9 +1,9 @@
 public class RocketLauncher extends Weapon{
-    public RocketLauncher(Player player){
-        super(player);
-        rateOfFire = 10;
-        ammoCapacity = 500;
-        availableRounds = 500;
+    public RocketLauncher(Player player, GameEngine g){
+        super(player, g, "TestSpace/resources/RocketLauncherFired.wav");
+        rateOfFire = 1;
+        ammoCapacity = 5;
+        availableRounds = 5;
     }
     @Override
     public void fire() {
