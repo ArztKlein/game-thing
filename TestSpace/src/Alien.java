@@ -16,8 +16,8 @@ public class Alien {
         this.x = x;
         this.y = y;
         this.hitpoints = 3;
-        this.radius = 15; //sprite.width(null)/2
         this.sprite = sprite;
+        this.radius = sprite.getWidth(null);
         this.speedY = DROP_SPEED;
         this.laneOffsetX = Math.random() * 60 - 30; // Random offset to create a tighter group
     }

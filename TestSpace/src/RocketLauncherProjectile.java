@@ -5,7 +5,7 @@ public class RocketLauncherProjectile extends Projectile{
     public RocketLauncherProjectile(double x, double y){
         super(x, y);
         this.sprite = GameEngine.loadImage("TestSpace/resources/bullet.png"); //doesnt exist yet
-        radius = sprite.getWidth(null)/2;
+        radius = sprite.getWidth(null);
         velY = -50;
         accelY = 700;
         damage = 3;

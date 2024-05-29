@@ -10,7 +10,7 @@ public class MediumAlien extends Alien {
         super(x, y, sprite);
         this.hitpoints = MEDIUM_ALIEN_HEALTH;
         this.speedY = MEDIUM_ALIEN_DROP_SPEED;
-        this.radius = (int) (15 * SCALE_FACTOR); // adjust radius for collision detection
+        this.radius = (int) (radius * SCALE_FACTOR); // adjust radius for collision detection
     }
 
     @Override

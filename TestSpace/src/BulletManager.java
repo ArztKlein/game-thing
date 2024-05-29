@@ -57,7 +57,7 @@ public class BulletManager {
                 }
                 if (projectile instanceof RocketLauncherProjectile && collisionDetected) {
                     for (Alien nearbyAlien : alienManager.getAliens()) {
-                        if (projectile.checkCollision(nearbyAlien) < 10 * projectile.getRadius()) {
+                        if (projectile.checkCollision(nearbyAlien) < 3 * projectile.getRadius()) {
                             nearbyAlien.setHitpoints(projectile.getDamage());
                             if (nearbyAlien.getHitpoints() == 0) {
                                 deadAliens.add(nearbyAlien);
@@ -66,16 +66,35 @@ public class BulletManager {
                     }
                 }
             }
-                if (collisionDetected || projectile.getY() < 250) { // delete bullet
+            if (projectile instanceof RocketLauncherProjectile) {
+                if(collisionDetected){
+                    alienManager.getAliens().removeAll(deadAliens);
+                    Score.score += deadAliens.size(); // Raises the players score for all the aliens killed
+                    Player.getAmmo();
                     bulletIterator.remove();
-                    if (collisionDetected) {
-                        alienManager.getAliens().removeAll(deadAliens);
-                        Score.score += deadAliens.size(); // Raises the players score for all the aliens killed
-                        Player.getAmmo();
-                    }
+                }
+                else if(projectile.getY() < 0){
+                    bulletIterator.remove();
+                }
+            }
+            else if (projectile instanceof MachineGunProjectile) {
+                if(collisionDetected){
+                    bulletIterator.remove();
+                }
+                else if(projectile.getY() < 150){
+                    bulletIterator.remove();
+                }
+            }
+            else if (projectile instanceof FlamethrowerProjectile){
+                if(collisionDetected){
+                  bulletIterator.remove();
+                }
+                else if(projectile.getY() < 30){
+                    bulletIterator.remove();
                 }
             }
         }
+    }
     public List<Projectile> getProjectiles(){return this.projectiles;}
 
     public void drawBullets(GameEngine g){

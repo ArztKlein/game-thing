@@ -13,12 +13,12 @@ public class MachineGunProjectile extends Projectile{
     }
     @Override
     public void update(double dt){
-        velY -= accelY * dt * (150 * Math.random()+20); //change the velocity based on the acceleration amount over time(dt)
+        velY -= accelY * dt * (8 * Math.random()+4); //change the velocity based on the acceleration amount over time(dt)
         y += velY * dt; //change the position based on the velocity over time
     }
     @Override
     public void draw(GameEngine g) {
-        g.drawImage(sprite,(int)x,(int)y, sprite.getWidth(null)*.8 ,sprite.getHeight(null)*.8);
+        g.drawImage(sprite,(int)x,(int)y, (double) sprite.getWidth(null) /2 , (double) sprite.getHeight(null) /2);
     }
 
     @Override
