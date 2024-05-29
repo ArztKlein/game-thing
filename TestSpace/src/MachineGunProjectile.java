@@ -1,5 +1,7 @@
 import java.awt.*;
 import java.awt.image.ImageObserver;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MachineGunProjectile extends Projectile{
     private final Image sprite;
@@ -22,9 +24,23 @@ public class MachineGunProjectile extends Projectile{
     }
 
     @Override
-    public double checkCollision(Alien enemy) {
-        double dx = x - enemy.getX(); //distance between the center of the circle x and the center circle x of enemy
-        double dy = y - enemy.getY(); //distance between the center of the circle y and the center circle y of enemy
-        return Math.sqrt(dx * dx + dy * dy); //get the magnitude(length from us to enemy)
+    public boolean checkCollision(AlienManager alienManager){
+        List<Alien> deadAliens = new ArrayList<>();
+
+        for (Alien alien : alienManager.getAliens()) {
+            if (getDistance(alien) < radius) {
+                alien.setHitpoints(damage);
+                if (alien.getHitpoints() == 0) {
+                    deadAliens.add(alien);
+                }
+            }
+        }
+        if (!deadAliens.isEmpty()) {
+            alienManager.getAliens().removeAll(deadAliens);
+            Score.score += deadAliens.size();
+            Player.getAmmo();
+            return true;
+        }
+        return false;
     }
 }

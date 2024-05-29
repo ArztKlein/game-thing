@@ -1,4 +1,5 @@
 import java.awt.*;
+import java.util.Iterator;
 
 public abstract class Projectile
 {
@@ -18,7 +19,7 @@ public abstract class Projectile
 
     public abstract void draw(GameEngine g);
 
-    public abstract double checkCollision(Alien enemy);
+    public abstract boolean checkCollision(AlienManager alienManager);
 
     public void setRadius(int radius){
         this.radius = radius;
@@ -72,4 +73,8 @@ public abstract class Projectile
     public void setY(double y) {
         this.y = y;
     }
+    public double getDistance(Alien alien){
+        double dx = x - alien.getX();
+        double dy = y - alien.getY();
+        return Math.sqrt(dx * dx + dy * dy);}
 }
