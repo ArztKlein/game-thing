@@ -17,9 +17,8 @@ public class Flamethrower extends Weapon {
 
         double dx = Math.sin(time * SWEEP_SPEED);
 //        double dy = Math.abs(Math.cos(time * SWEEP_SPEED)) + 1;
-        double dy = 1;
 
-        Projectile bullet = new FlamethrowerProjectile(player.getX()+5, player.getY()-5, dx, dy);
+        Projectile bullet = new FlamethrowerProjectile(player.getX()+5, player.getY()-5, dx);
         TestSpace.bulletManager.addBullet(bullet);
     }
 

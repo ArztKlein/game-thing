@@ -12,7 +12,8 @@ public class BulletManager {
     }
 
     public void addBullet(Projectile projectile){
-        projectiles.add(projectile);}
+        projectiles.add(projectile);
+    }
 
     public void updateBullets(double dt, AlienManager alienManager){
         Iterator<Projectile> bulletIterator = projectiles.iterator();
@@ -50,8 +51,16 @@ public class BulletManager {
                         }
                         collisionDetected = true;
                     }
-                    if (projectile instanceof FlamethrowerProjectile) {
-                        //flamethrower collisions
+                }
+                if (projectile instanceof FlamethrowerProjectile) {
+                    Alien alien = alienIterator.next();
+                    if (projectile.checkCollision(alien) < projectile.getRadius()) {
+                        alien.setHitpoints(projectile.getDamage());
+                        if (alien.getHitpoints() == 0) {
+                            alienIterator.remove();
+                            Score.score++;                              //Raises the players score when an alien is killed
+                            Player.getAmmo();
+                        }
                         collisionDetected = true;
                     }
                 }
@@ -86,10 +95,7 @@ public class BulletManager {
                 }
             }
             else if (projectile instanceof FlamethrowerProjectile){
-                if(collisionDetected){
-                  bulletIterator.remove();
-                }
-                else if(projectile.getY() < 30){
+                if(projectile.getY() < 30 || ((FlamethrowerProjectile) projectile).hasDisappeared()){
                     bulletIterator.remove();
                 }
             }
