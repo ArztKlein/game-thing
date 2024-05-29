@@ -37,7 +37,7 @@ public class AlienManager {
         Alien alien;
 
         // Modified to spawn different types of aliens based on the wave
-        if (wave >= 1 && Math.random() < 0.1) {
+        if (wave >= 5 && Math.random() < 0.1) {
             alien = new LargeAlien(spawnX, 0, largeAlienChart);
         } else if (wave >= 3 && Math.random() < 0.3) {
             alien = new MediumAlien(spawnX, 0, alienSprite);
