@@ -75,7 +75,7 @@ public class Alien {
         return y >= playerY;
     }
     public void playHitSound(){
-        GameEngine.AudioClip hit=  gameEngine.loadAudio("TestSpace/resources/EnemyHit.wav");
+        GameEngine.AudioClip hit =  gameEngine.loadAudio("TestSpace/resources/sfx-enemyhit.wav");
         gameEngine.playAudio(hit);
     }
 }

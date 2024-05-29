@@ -60,7 +60,7 @@ public class TestSpace extends GameEngine {
         state = State.PLAYING;
 
         // Initialize the AlienManager
-        alienManager = new AlienManager(loadImage("TestSpace/resources/Alien.png"), loadImage("TestSpace/resources/LargeAlien.png"), player, this);
+        alienManager = new AlienManager(loadImage("TestSpace/resources/Alien.png"), loadImage("TestSpace/resources/MedAlien.png"), loadImage("TestSpace/resources/LargeAlien.png"), player, this);
     }
 
     @Override

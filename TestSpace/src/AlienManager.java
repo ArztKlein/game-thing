@@ -7,7 +7,7 @@ public class AlienManager {
     private List<Alien> aliens;
     private Image alienSprite;
     private final Image largeAlienChart;
-    private Image largeAlienSprite;
+    private final Image mediumAlienChart;
     private Player player;
     private double elapsedTime;
     private int wave;
@@ -18,7 +18,7 @@ public class AlienManager {
     private double timeSinceLastAlienSpawn;
     private GameEngine gameEngine;
 
-    public AlienManager(Image alienSprite, Image largeAlienChart, Player player, GameEngine g) {
+    public AlienManager(Image alienSprite, Image mediumAlienChart, Image largeAlienChart, Player player, GameEngine g) {
         gameEngine = g;
         this.alienSprite = alienSprite;
         this.aliens = new ArrayList<>();
@@ -29,6 +29,7 @@ public class AlienManager {
         this.aliensSpawned = 0;
         this.aliensKilled = 0;
         this.timeSinceLastAlienSpawn = 0;
+        this.mediumAlienChart = mediumAlienChart;
         this.largeAlienChart = largeAlienChart;
     }
 
@@ -42,7 +43,7 @@ public class AlienManager {
         if (wave >= 5 && Math.random() < 0.1) {
             alien = new LargeAlien(spawnX, 0, largeAlienChart, gameEngine);
         } else if (wave >= 3 && Math.random() < 0.3) {
-            alien = new MediumAlien(spawnX, 0, alienSprite, gameEngine);
+            alien = new MediumAlien(spawnX, 0, mediumAlienChart, gameEngine);
         } else {
             alien = new Alien(spawnX, 0, alienSprite, gameEngine);
         }
