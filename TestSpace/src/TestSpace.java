@@ -13,6 +13,7 @@ public class TestSpace extends GameEngine {
     public String scoreName;
     private final Score score = new Score();
     boolean isWeapon;
+    AudioClip backgroundMusic;
 
     public enum State {
         MAIN_MENU,
@@ -44,6 +45,9 @@ public class TestSpace extends GameEngine {
         name = new JTextField();
 
         isWeapon = true;
+
+        backgroundMusic = loadAudio("TestSpace/resources/bensound-scifi.wav");
+        startAudioLoop(backgroundMusic);
     }
 
     public void startGame() {
@@ -51,14 +55,13 @@ public class TestSpace extends GameEngine {
         state = State.PLAYING;
 
         // Initialize the AlienManager
-        alienManager = new AlienManager(loadImage("TestSpace/resources/Alien.png"), player);
+        alienManager = new AlienManager(loadImage("TestSpace/resources/Alien.png"), loadImage("TestSpace/resources/LargeAlien.png"), player);
     }
 
     @Override
     public void update(double dt) {
         switch (state) {
             case MAIN_MENU:
-                init();
                 mainMenu.update(dt);
                 break;
             case PLAYING:
@@ -147,7 +150,10 @@ public class TestSpace extends GameEngine {
                 score.updateHighScore(scoreName);
                 scoreState = ScoreState.NULL;
             }
-            case NULL -> state = State.MAIN_MENU;
+            case NULL -> {
+                init();
+                state = State.MAIN_MENU;
+            }
         }
     }
 

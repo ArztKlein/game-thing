@@ -6,6 +6,8 @@ import java.util.List;
 public class AlienManager {
     private List<Alien> aliens;
     private Image alienSprite;
+    private final Image largeAlienChart;
+    private Image largeAlienSprite;
     private Player player;
     private double elapsedTime;
     private int wave;
@@ -15,17 +17,17 @@ public class AlienManager {
     private final double ALIEN_SPAWN_INTERVAL = 0.1;
     private double timeSinceLastAlienSpawn;
 
-    public AlienManager(Image alienSprite, Player player) {
+    public AlienManager(Image alienSprite, Image largeAlienChart, Player player) {
         this.alienSprite = alienSprite;
         this.aliens = new ArrayList<>();
         this.player = player;
         this.elapsedTime = 0;
-
         this.wave = 0;
         this.aliensToSpawn = 0;
         this.aliensSpawned = 0;
         this.aliensKilled = 0;
         this.timeSinceLastAlienSpawn = 0;
+        this.largeAlienChart = largeAlienChart;
     }
 
     public void spawnAlien() {
@@ -35,8 +37,8 @@ public class AlienManager {
         Alien alien;
 
         // Modified to spawn different types of aliens based on the wave
-        if (wave >= 5 && Math.random() < 0.1) {
-            alien = new LargeAlien(spawnX, 0, alienSprite);
+        if (wave >= 1 && Math.random() < 0.1) {
+            alien = new LargeAlien(spawnX, 0, largeAlienChart);
         } else if (wave >= 3 && Math.random() < 0.3) {
             alien = new MediumAlien(spawnX, 0, alienSprite);
         } else {
