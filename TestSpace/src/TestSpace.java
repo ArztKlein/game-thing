@@ -98,7 +98,7 @@ public class TestSpace extends GameEngine {
                 player.draw(this);
                 drawPlayerHealth();
                 bulletManager.drawBullets(this);
-                alienManager.draw(this.mGraphics);
+                alienManager.draw(this);
                 drawPlayerHealth();
                 drawScore();
                 break;

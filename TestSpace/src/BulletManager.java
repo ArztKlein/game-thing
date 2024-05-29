@@ -16,34 +16,68 @@ public class BulletManager {
 
     public void updateBullets(double dt, AlienManager alienManager){
         Iterator<Projectile> bulletIterator = projectiles.iterator();
+        List<Alien>deadAliens = new ArrayList<>();
+        Projectile projectile;
 
         while(bulletIterator.hasNext()) {
-            Projectile projectile = bulletIterator.next();
+            projectile = bulletIterator.next();
             projectile.update(dt);
-
             boolean collisionDetected = false;
             Iterator<Alien> alienIterator = alienManager.getAliens().iterator();
 
-            while (alienIterator.hasNext()) {
-                Alien alien = alienIterator.next();
-                if (projectile.checkCollision(alien)){
-                    if(!alien.setHitpoints(projectile.getDamage()))      //This is what when a collision occurs
-                    {
-                        alienIterator.remove();                     //delete the alien
-                        Score.score++;                              //Raises the players score when an alien is killed
-                        Player.getAmmo();                      // Checks to see if the alien drops ammo for the player
-
+            while(alienIterator.hasNext()) {
+                if (projectile instanceof RocketLauncherProjectile) {
+                    //rocket collisions
+                    Alien alien = alienIterator.next();
+                    if (projectile.checkCollision(alien) < projectile.getRadius()) {
+                        alien.setHitpoints(projectile.getDamage());
+                        if (alien.getHitpoints() == 0) {
+                            deadAliens.add(alien);
+                        }
+                        collisionDetected = true;
                     }
-                    collisionDetected = true;                       //set flag to delete bullet
-                    break;                                          //break because each bullet only has one collision before being destroyed but each bullet/collision needs to be checked.
+                }
+
+                if (projectile instanceof MachineGunProjectile) {
+                    //machine gun collisions
+                    Alien alien = alienIterator.next();
+                    if (projectile.checkCollision(alien) < projectile.getRadius()) {
+                        alien.setHitpoints(projectile.getDamage());
+                        if (alien.getHitpoints() == 0) {
+                            alienIterator.remove();
+                            Score.score++;                              //Raises the players score when an alien is killed
+                            Player.getAmmo();
+                        }
+                        collisionDetected = true;
+                    }
+                    if (projectile instanceof FlamethrowerProjectile) {
+                        //flamethrower collisions
+                        collisionDetected = true;
+                    }
+                }
+                if (projectile instanceof RocketLauncherProjectile && collisionDetected) {
+                    for (Alien nearbyAlien : alienManager.getAliens()) {
+                        if (projectile.checkCollision(nearbyAlien) < 10 * projectile.getRadius()) {
+                            nearbyAlien.setHitpoints(projectile.getDamage());
+                            if (nearbyAlien.getHitpoints() == 0) {
+                                deadAliens.add(nearbyAlien);
+                            }
+                        }
+                    }
                 }
             }
-            if (collisionDetected || projectile.getY() < 250) {     //delete bullet
-                bulletIterator.remove();
+                if (collisionDetected || projectile.getY() < 250) { // delete bullet
+                    bulletIterator.remove();
+                    if (collisionDetected) {
+                        alienManager.getAliens().removeAll(deadAliens);
+                        Score.score += deadAliens.size(); // Raises the players score for all the aliens killed
+                        Player.getAmmo();
+                    }
+                }
             }
         }
-    }
     public List<Projectile> getProjectiles(){return this.projectiles;}
+
     public void drawBullets(GameEngine g){
         for(Projectile b: projectiles){
             b.draw(g);

@@ -16,33 +16,25 @@ public class Alien {
         this.x = x;
         this.y = y;
         this.hitpoints = 3;
-        this.radius = 15; // sprite.width(null)/2
+        this.radius = 15; //sprite.width(null)/2
         this.sprite = sprite;
         this.speedY = DROP_SPEED;
         this.laneOffsetX = Math.random() * 60 - 30; // Random offset to create a tighter group
     }
+    public int getHitpoints(){return this.hitpoints;}
 
-    public int getHitpoints() {
-        return this.hitpoints;
+    public void setHitpoints(int damage){
+        if(hitpoints-damage>0){
+            hitpoints =0;
+        }
+        else{
+            hitpoints -= damage;
+        }
+
     }
-
-    public boolean setHitpoints(int damage) {
-        this.hitpoints -= damage;
-        return this.hitpoints > 0;
-    }
-
-    public double getX() {
-        return this.x;
-    }
-
-    public double getY() {
-        return this.y;
-    }
-
-    public int getRadius() {
-        return this.radius;
-    }
-
+    public double getX(){return this.x;}
+    public double getY(){return this.y;}
+    public int getRadius(){return this.radius;}
     public void update(double dt, Player player) {
         if (!chasingPlayer) {
             y += speedY * dt;
@@ -50,7 +42,8 @@ public class Alien {
                 chasingPlayer = true;
             }
         } else {
-            double targetX = player.getX() + laneOffsetX;
+            // Move towards the player's position
+            double targetX = player.getX();
             double targetY = player.getY();
 
             if (x < targetX) {
@@ -68,16 +61,17 @@ public class Alien {
     }
 
     public void draw(Graphics2D g) {
-        g.drawImage(sprite, (int) x, (int) y, null);
+        g.drawImage(sprite, (int)x, (int)y, null);
     }
 
-    public boolean checkCollision(Player player) {
-        Rectangle alienBounds = new Rectangle((int) x, (int) y, sprite.getWidth(null), sprite.getHeight(null));
-        Rectangle playerBounds = new Rectangle((int) player.getX(), (int) player.getY(), 40, 40);
-        return alienBounds.intersects(playerBounds);
+    public double checkCollision(Player player) {
+        double dx = x - player.getX(); //distance between the center of the circle x and the center circle x of enemy
+        double dy = y - player.getY(); //distance between the center of the circle y and the center circle y of enemy
+        return Math.sqrt(dx * dx + dy * dy); //get the magnitude(length from us to enemy)
     }
 
     public boolean hasReachedPlayerHeight(double playerY) {
         return y >= playerY;
     }
+
 }

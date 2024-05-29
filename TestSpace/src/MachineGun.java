@@ -1,8 +1,10 @@
 public class MachineGun extends Weapon {
 
     public MachineGun(Player player){
-        super(32,99999999, player );
-
+        super(player);
+        rateOfFire = 10;
+        ammoCapacity = 999999999;
+        availableRounds = 999999999;
     }
 
     @Override

@@ -4,7 +4,10 @@ public class Flamethrower extends Weapon {
     private final static int SWEEP_SPEED = 10;
 
     public Flamethrower(Player player){
-        super(100,1, player);
+        super(player);
+        rateOfFire = 100;
+        ammoCapacity = 1;
+        availableRounds=1;
         emitter = new FireParticleEmitter();
         emitter.move((float)player.getX()+10, TestSpace.HEIGHT - 105);
     }
@@ -38,7 +41,7 @@ public class Flamethrower extends Weapon {
     @Override
     public void startShooting() {
         super.startShooting();
-        emitter.emitterFrequency = 75;
+        emitter.emitterFrequency = 150;
     }
 
     @Override

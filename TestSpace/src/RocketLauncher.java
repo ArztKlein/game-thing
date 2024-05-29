@@ -1,6 +1,9 @@
 public class RocketLauncher extends Weapon{
     public RocketLauncher(Player player){
-        super(1, 5, player);
+        super(player);
+        rateOfFire = 2;
+        ammoCapacity = 5;
+        availableRounds = 5;
     }
     @Override
     public void fire() {

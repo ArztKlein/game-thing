@@ -3,13 +3,17 @@ import java.awt.*;
 public class RocketLauncherProjectile extends Projectile{
     private final Image sprite;
     public RocketLauncherProjectile(double x, double y){
-        super(x, y, 20 ,-100, 0,10);
+        super(x, y);
         this.sprite = GameEngine.loadImage("TestSpace/resources/bullet.png"); //doesnt exist yet
+        radius = sprite.getWidth(null)/2;
+        velY = -50;
+        accelY = 700;
+        damage = 3;
     }
 
     @Override
     public void update(double dt) {
-        velY += accelY * dt * (15 * Math.random()); //change the velocity based on the acceleration amount over time(dt)
+        velY -= accelY * dt; //change the velocity based on the acceleration amount over time(dt)
         y += velY * dt; //change the position based on the velocity over time
     }
 
@@ -19,10 +23,9 @@ public class RocketLauncherProjectile extends Projectile{
     }
 
     @Override
-    public boolean checkCollision(Alien enemy) {
+    public double checkCollision(Alien enemy) {
         double dx = x - enemy.getX();
         double dy = y - enemy.getY();
-        double distance = Math.sqrt(dx * dx + dy * dy);
-        return distance < radius + enemy.getRadius();
+        return Math.sqrt(dx * dx + dy * dy);
     }
 }

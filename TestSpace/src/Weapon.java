@@ -7,16 +7,12 @@ public abstract class Weapon {
     protected double x, y;
     protected double lastShotTime;
     protected boolean isShooting;
-    protected final Player player;
+    protected Player player;
 
-    public Weapon(int rateOfFire, int ammoCapacity, Player player){
-        this.rateOfFire = rateOfFire;
-        this.ammoCapacity=ammoCapacity;
-        this.availableRounds=ammoCapacity;
-        this.x = player.getX()+5;
-        this.y = player.getY()-5;
+    public Weapon(Player player){
         this.player = player;
-        this.isShooting = false;
+        x = player.getX()+5;
+        y = player.getY()-5;
         this.lastShotTime= 0;
     }
     public void update(double dt){
@@ -25,17 +21,25 @@ public abstract class Weapon {
 
         if (isShooting && availableRounds > 0) {
             double currentTime = System.currentTimeMillis();
-            if (currentTime - lastShotTime >= 1000.0 / rateOfFire) {
+            double timeSinceLastShot = currentTime - lastShotTime;
+
+            if (lastShotTime == 0) { // Fire immediately on the first shot
+                fire();
+                lastShotTime = currentTime;
+            }
+            else if (timeSinceLastShot >= 1000.0 / rateOfFire) {
                 fire();
                 lastShotTime = currentTime;
             }
         }
     }
     public abstract void fire();
+
     public boolean isShooting(){return isShooting;}
+
     public void startShooting(){
         isShooting = true;
-        lastShotTime = System.currentTimeMillis();
+        lastShotTime = 0;
     }
     public void stopShooting(){
         isShooting = false;

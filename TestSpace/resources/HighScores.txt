@@ -1,3 +1,4 @@
+49;Luke
 10;Agent 47
 9;Baldur
 8;Crash
@@ -7,4 +8,3 @@
 4;Goomba
 3;Hawke
 2;Iggy Koopa
-1;Johnny Cage

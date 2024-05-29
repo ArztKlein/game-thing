@@ -1,12 +1,12 @@
 import java.awt.Graphics2D;
 import java.awt.Image;
-import java.awt.image.ImageObserver;
 import java.util.ArrayList;
 
 public class Player {
     private final double y;
     private double x;
     private int direction;
+    private int radius;
     private int health;
     private final Image sprite;
     private final double speed;
@@ -22,6 +22,7 @@ public class Player {
         this.speed = 400.0D;
         this.health = 100;
         this.sprite = sprite;
+        this.radius = sprite.getWidth(null)/2;
         this.playerHealth = 100;
 
         // Give weapons
@@ -72,6 +73,8 @@ public class Player {
     public int getDirection() {
         return direction;
     }
+
+    public int getRadius(){return this.radius;}
 
     private void selectWeapon(int slot) {
         // Make sure old weapon stops shooting first

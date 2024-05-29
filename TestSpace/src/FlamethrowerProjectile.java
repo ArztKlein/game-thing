@@ -9,7 +9,7 @@ public class FlamethrowerProjectile extends Projectile {
     private double dx, dy;
 
     public FlamethrowerProjectile(double x, double y, double dx, double dy) {
-        super(x, y, 10,-dy * SPEED, 1, 1);
+        super(x, y);
         this.velX = dx * SPEED;
         this.dx = dx;
         this.dy = dy;
@@ -45,11 +45,10 @@ public class FlamethrowerProjectile extends Projectile {
     }
 
     @Override
-    public boolean checkCollision(Alien enemy) {
+    public double checkCollision(Alien enemy) {
         double dx = x - enemy.getX();
         double dy = y - enemy.getY();
-        double distance = Math.sqrt(dx * dx + dy * dy);
-        return distance < radius + enemy.getRadius();
+        return Math.sqrt(dx * dx + dy * dy);
     }
 
     double smoothStep(double x) {

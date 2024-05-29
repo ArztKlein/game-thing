@@ -39,8 +39,8 @@ public class AlienManager {
         while (iterator.hasNext()) {
             Alien alien = iterator.next();
             alien.update(dt, player);
-            if (alien.checkCollision(player) || alien.hasReachedPlayerHeight(player.getY())) {
-                if (alien.checkCollision(player)) {
+            if (alien.checkCollision(player) <= alien.radius || alien.hasReachedPlayerHeight(player.getY())) {
+                if (alien.checkCollision(player)<= alien.radius) {
                     player.reduceHealth(5); // Reduce player's health on collision
                 }
                 iterator.remove();
@@ -52,9 +52,9 @@ public class AlienManager {
         return this.aliens;
     }
 
-    public void draw(Graphics2D g) {
+    public void draw(GameEngine g) {
         for (Alien alien : aliens) {
-            alien.draw(g);
+            alien.draw(g.mGraphics);
         }
     }
 }
