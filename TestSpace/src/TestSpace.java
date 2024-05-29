@@ -4,13 +4,11 @@ import java.awt.event.KeyEvent;
 
 public class TestSpace extends GameEngine {
     private final MainMenu mainMenu = new MainMenu(this);
-    public static final int WIDTH  = 600;
+    public static final int WIDTH = 600;
     public static final int HEIGHT = 840;
     public static final BulletManager bulletManager = new BulletManager();
     private Player player;
     private AlienManager alienManager;
-    private double timeSinceLastAlienSpawn = 0; // Handle time accumulation for alien spawning
-    private final double ALIEN_SPAWN_INTERVAL = 0.3; // Adjust this value to control alien spawning rate
     public static JTextField name;
     public String scoreName;
     private final Score score = new Score();
@@ -29,7 +27,6 @@ public class TestSpace extends GameEngine {
     }
 
     private State state = State.MAIN_MENU;
-
     private ScoreState scoreState;
 
     Image background = loadImage("TestSpace/resources/LargeSpace.png");
@@ -41,7 +38,7 @@ public class TestSpace extends GameEngine {
     public void init() {
         setWindowSize(WIDTH, HEIGHT);
 
-        //init score
+        // Init score
         Score.score = 0;
         scoreState = ScoreState.CHECK;
         name = new JTextField();
@@ -52,7 +49,9 @@ public class TestSpace extends GameEngine {
     public void startGame() {
         this.player = new Player(WIDTH / 2, HEIGHT - 75, GameEngine.loadImage("TestSpace/resources/Spaceman.png"));
         state = State.PLAYING;
-        alienManager = new AlienManager(loadImage("TestSpace/resources/Alien.png"), player); // Initialise the AlienManager
+
+        // Initialize the AlienManager
+        alienManager = new AlienManager(loadImage("TestSpace/resources/Alien.png"), player);
     }
 
     @Override
@@ -72,12 +71,6 @@ public class TestSpace extends GameEngine {
                     state = State.GAME_OVER;
                     // Reset player's health when returning to main menu
                     player.resetHealth();
-                }
-
-                timeSinceLastAlienSpawn += dt;
-                if (timeSinceLastAlienSpawn >= ALIEN_SPAWN_INTERVAL) {
-                    alienManager.spawnAlien();
-                    timeSinceLastAlienSpawn -= ALIEN_SPAWN_INTERVAL;
                 }
                 break;
             case GAME_OVER:
@@ -125,8 +118,8 @@ public class TestSpace extends GameEngine {
 
     public void drawBackground() {
         saveCurrentTransform();
-        scale(1.2,1.2);
-        drawImage(background, 0,0);
+        scale(1.2, 1.2);
+        drawImage(background, 0, 0);
         restoreLastTransform();
     }
 
@@ -140,7 +133,7 @@ public class TestSpace extends GameEngine {
 
     public void drawScore() {
         changeColour(white);
-        drawText(10,30, "Score: " + Score.score, 30);
+        drawText(10, 30, "Score: " + Score.score, 30);
     }
 
     public void manageScore() {
@@ -182,7 +175,7 @@ public class TestSpace extends GameEngine {
                 }
             }
             case GAME_OVER -> {
-                if(event.getKeyCode() == KeyEvent.VK_ENTER) {
+                if (event.getKeyCode() == KeyEvent.VK_ENTER) {
                     scoreName = name.getText();
                     if (scoreName.isEmpty()) {
                         scoreName = "Anon";
@@ -193,20 +186,30 @@ public class TestSpace extends GameEngine {
             }
         }
     }
+
     @Override
     public void keyReleased(KeyEvent event) {
         if (state == State.PLAYING) {
             switch (event.getKeyCode()) {
-                case (KeyEvent.VK_LEFT) -> {if(this.player.getDirection() == -1) {this.player.stop();}}
-                case (KeyEvent.VK_RIGHT) -> {if(this.player.getDirection() == 1) {this.player.stop();}}
+                case (KeyEvent.VK_LEFT) -> {
+                    if (this.player.getDirection() == -1) {
+                        this.player.stop();
+                    }
+                }
+                case (KeyEvent.VK_RIGHT) -> {
+                    if (this.player.getDirection() == 1) {
+                        this.player.stop();
+                    }
+                }
                 case (KeyEvent.VK_SPACE) -> {
                     player.stopShooting();
                 }
             }
         }
     }
+
     @Override
-    public void keyTyped(KeyEvent event){
+    public void keyTyped(KeyEvent event) {
         if (state == State.PLAYING) {
             switch (event.getKeyCode()) {
                 case (KeyEvent.VK_SPACE) -> {
