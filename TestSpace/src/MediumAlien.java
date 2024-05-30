@@ -1,9 +1,9 @@
 import java.awt.*;
 
 public class MediumAlien extends Alien {
-    private static final int MEDIUM_ALIEN_HEALTH = 4; // health of a medium alien
-    private static final double MEDIUM_ALIEN_DROP_SPEED = 25;
-    private static final double MEDIUM_ALIEN_CHASE_SPEED = 60;
+    private static final int MEDIUM_ALIEN_HEALTH = 6; // health of a medium alien
+    private static final double MEDIUM_ALIEN_DROP_SPEED = 50;
+    private static final double MEDIUM_ALIEN_CHASE_SPEED = 70;
     private static final double SCALE_FACTOR = 1.5;
     private Image[] maSprites = new Image[4];
     private Image sprite;

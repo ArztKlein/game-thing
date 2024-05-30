@@ -14,7 +14,7 @@ public class AlienManager {
     private int aliensToSpawn;
     private int aliensSpawned;
     private int aliensKilled;
-    private final double ALIEN_SPAWN_INTERVAL = 0.1;
+    private final double ALIEN_SPAWN_INTERVAL = 0.04;
     private double timeSinceLastAlienSpawn;
     private GameEngine gameEngine;
 
@@ -77,7 +77,7 @@ public class AlienManager {
         // If this wave is over (no aliens left), start the new wave.
         if (aliens.size() == 0 && aliensSpawned == aliensToSpawn) { // Modified condition
             wave++;
-            aliensToSpawn = (int) (50 + 50 * wave * 0.3f); // Calculate number of aliens for new wave
+            aliensToSpawn = (int) (100 + 200 * wave * 0.3f); // Calculate number of aliens for new wave
             aliensSpawned = 0;
             aliensKilled = 0;
         }

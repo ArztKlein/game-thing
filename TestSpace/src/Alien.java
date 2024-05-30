@@ -7,8 +7,8 @@ public class Alien {
     protected double speedY;
     protected Image sprite;
     protected boolean chasingPlayer = false;
-    protected static final double TARGET_Y = 375;
-    protected static final double DROP_SPEED = 35; // Adjust to control the drop speed of aliens
+    protected static final double TARGET_Y = 500;
+    protected static final double DROP_SPEED = 50; // Adjust to control the drop speed of aliens
     protected static final double CHASE_SPEED = 80; // Adjust to control the speed at which aliens follow the player
     protected double laneOffsetX; // Offset to keep the formation
     private GameEngine gameEngine;

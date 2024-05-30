@@ -1,9 +1,9 @@
 import java.awt.*;
 
 public class LargeAlien extends Alien {
-    private static final int LARGE_ALIEN_HEALTH = 5; // health of a Large alien
-    private static final double LARGE_ALIEN_DROP_SPEED = 30;
-    private static final double LARGE_ALIEN_CHASE_SPEED = 50;
+    private static final int LARGE_ALIEN_HEALTH = 7; // health of a Large alien
+    private static final double LARGE_ALIEN_DROP_SPEED = 50;
+    private static final double LARGE_ALIEN_CHASE_SPEED = 70;
     private static final double SCALE_FACTOR = 2.0;
     double targetY;
     double targetX;
