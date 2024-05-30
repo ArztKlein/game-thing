@@ -15,11 +15,7 @@ public class TestSpace extends GameEngine {
     private final Score score = new Score();
     boolean isWeapon;
     AudioClip backgroundMusic;
-    AudioClip machineGunFired;
-    AudioClip rocketLauncherFired;
-    AudioClip flamethrowerFired;
-    AudioClip enemyHit;
-    static ArrayList<AudioClip> sfx;
+
     public enum State {
         MAIN_MENU,
         PLAYING,
@@ -55,7 +51,7 @@ public class TestSpace extends GameEngine {
         isWeapon = true;
 
         backgroundMusic = loadAudio("TestSpace/resources/bensound-scifi.wav");
-        startAudioLoop(backgroundMusic, 0.25f);
+        startAudioLoop(backgroundMusic);
     }
 
     public void startGame() {

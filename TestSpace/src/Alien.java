@@ -16,6 +16,7 @@ public class Alien {
     private Image aSprite;
     private int flowCount = 0;
     boolean forward = true;
+
     public Alien(double x, double y, Image[] sprite, GameEngine g) {
         gameEngine = g;
         this.x = x;

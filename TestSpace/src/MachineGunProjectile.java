@@ -8,7 +8,7 @@ public class MachineGunProjectile extends Projectile{
     public MachineGunProjectile(double x, double y){
         super(x, y);
         sprite = GameEngine.loadImage("TestSpace/resources/bullet.png");
-        radius = sprite.getWidth(null)/2;
+        radius = sprite.getWidth(null);
         velY = -400;
         accelY = 100;
         damage = 1;
