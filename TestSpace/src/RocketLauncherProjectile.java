@@ -25,6 +25,11 @@ public class RocketLauncherProjectile extends Projectile{
     }
 
     @Override
+    public boolean isFinished() {
+        return y < 0;
+    }
+
+    @Override
     public boolean checkCollision(AlienManager alienManager){
         List<Alien> deadAliens = new ArrayList<>();
 

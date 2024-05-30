@@ -22,28 +22,12 @@ public class BulletManager {
             Projectile projectile = bulletIterator.next();
             projectile.update(dt);
 
-            if (projectile instanceof RocketLauncherProjectile) {
-                //rocket collisions
-                if (projectile.checkCollision(alienManager)) {
-                     bulletIterator.remove();
-                } else if (projectile.getY() < 0) {
-                     bulletIterator.remove();
-                }
-            }
-            if (projectile instanceof MachineGunProjectile) {
-                //machine gun collisions
-                if (projectile.checkCollision(alienManager)) {
-                    bulletIterator.remove();
-                } else if (projectile.getY() < 250) {
+            if (projectile.checkCollision(alienManager)) {
+                if (!(projectile instanceof FlamethrowerProjectile)) {
                     bulletIterator.remove();
                 }
-            }
-            if (projectile instanceof FlamethrowerProjectile) {
-                if (projectile.checkCollision(alienManager)) {
-                    bulletIterator.remove();
-                } else if (projectile.getY() < 250) {
-                    bulletIterator.remove();
-                }
+            } else if (projectile.isFinished()) {
+                bulletIterator.remove();
             }
         }
     }

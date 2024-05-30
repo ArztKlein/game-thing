@@ -44,4 +44,9 @@ public class MachineGunProjectile extends Projectile{
         }
         return false;
     }
+
+    @Override
+    public boolean isFinished() {
+        return y < 250;
+    }
 }

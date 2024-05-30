@@ -66,7 +66,8 @@ public class FlamethrowerProjectile extends Projectile {
         return x * x *  (3.0f - 2.0f * x);
     }
 
-    public boolean hasDisappeared() {
+    @Override
+    public boolean isFinished() {
         return alpha <= 0;
     }
 }

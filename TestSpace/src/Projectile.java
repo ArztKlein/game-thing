@@ -21,6 +21,8 @@ public abstract class Projectile
 
     public abstract boolean checkCollision(AlienManager alienManager);
 
+    public abstract boolean isFinished();
+
     public void setRadius(int radius){
         this.radius = radius;
     }
