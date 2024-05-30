@@ -23,9 +23,7 @@ public class BulletManager {
             projectile.update(dt);
 
             if (projectile.checkCollision(alienManager)) {
-                if (!(projectile instanceof FlamethrowerProjectile)) {
-                    bulletIterator.remove();
-                }
+                bulletIterator.remove();
             } else if (projectile.isFinished()) {
                 bulletIterator.remove();
             }
