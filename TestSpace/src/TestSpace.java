@@ -36,6 +36,9 @@ public class TestSpace extends GameEngine {
     private ScoreState scoreState;
 
     Image background = loadImage("TestSpace/resources/LargeSpace.png");
+    Image rocketUI = loadImage("TestSpace/resources/RocketUI.png");
+    Image flameUI = loadImage("TestSpace/resources/FlameUI.png");
+    Image bulletUI = loadImage("TestSpace/resources/BulletUI.png");
 
     public static void main(String[] args) {
         createGame(new TestSpace(), 60);
