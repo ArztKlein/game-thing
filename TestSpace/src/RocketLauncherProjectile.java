@@ -3,8 +3,8 @@ import java.util.List;
 import java.util.ArrayList;
 public class RocketLauncherProjectile extends Projectile{
     private final Image projectileSprite;
-
     private final Image[] collisionExplosion = new Image[6];
+
     public RocketLauncherProjectile(double x, double y){
         super(x, y);
         this.projectileSprite = GameEngine.loadImage("TestSpace/resources/bullet.png"); //doesnt exist yet

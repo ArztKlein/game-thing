@@ -116,6 +116,7 @@ public class TestSpace extends GameEngine {
                 drawPlayerHealth();
                 bulletManager.drawBullets(this);
                 alienManager.draw(this);
+                drawWeaponUI();
                 drawPlayerHealth();
                 drawScore();
                 break;
@@ -126,8 +127,20 @@ public class TestSpace extends GameEngine {
         }
     }
 
-    private void drawPlayerHealth() {
+    private void drawWeaponUI() {
+        saveCurrentTransform();
         changeColour(white);
+        Weapon weapon = player.getWeapon();
+        drawText(440, 60, weapon.getName(), 20);
+        // Ammo number
+        String ammoNumber = String.valueOf(weapon.getAvailableRounds());
+        if (weapon.getAvailableRounds() == Integer.MAX_VALUE) ammoNumber = "∞";
+        drawText(440, 80, "Ammo: " + ammoNumber, 20);
+        drawImage(weapon.getSprite(), 400, 45);
+        restoreLastTransform();
+    }
+
+    private void drawPlayerHealth() {
         saveCurrentTransform();
         changeColour(white);
         drawText(440, 30, "Health: " + player.getPlayerHealth(), 30);

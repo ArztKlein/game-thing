@@ -129,18 +129,14 @@ public class Player {
         Weapon flame = weapons.get(1);
         Weapon rocket = weapons.get(2);
 
-        double flameCap = 0.165; // sets the highest number for flame and lowest for rocket
+        double flameCap = 0.2; // sets the highest number for flame and lowest for rocket
         double rocketCap = 0.33; // sets the highest number for rocket, any number above this will not give ammo
         double rand = Math.random(); // creates a random number between 0 and 1.0
 
         if ((0 < rand) && (rand < flameCap)) {
-            if (flame.availableRounds < flame.ammoCapacity) {
-                flame.availableRounds++;
-            }
+            flame.incrementRounds();
         } else if ((flameCap < rand) && (rand < rocketCap)) {
-            if (rocket.availableRounds < rocket.ammoCapacity) {
-                rocket.availableRounds++;
-            }
+            rocket.incrementRounds();
         }
     }
 
@@ -149,5 +145,9 @@ public class Player {
         weapons.remove(2);
         weapons.remove(1);
         weapons.remove(0);
+    }
+
+    public Weapon getWeapon() {
+        return selectedWeapon;
     }
 }

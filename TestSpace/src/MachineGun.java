@@ -1,10 +1,10 @@
 public class MachineGun extends Weapon {
 
     public MachineGun(Player player, GameEngine g){
-        super(player, g, "TestSpace/resources/MachineGunFired.wav");
+        super(player, g, "TestSpace/resources/MachineGunFired.wav", "Machine gun", "TestSpace/resources/BulletUI.png");
         rateOfFire = 10;
-        ammoCapacity = 999999999;
-        availableRounds = 999999999;
+        ammoCapacity = Integer.MAX_VALUE;
+        availableRounds = Integer.MAX_VALUE;
     }
 
     @Override
@@ -12,8 +12,13 @@ public class MachineGun extends Weapon {
         if(availableRounds>0){
             Projectile bullet = new MachineGunProjectile(player.getX()+5, player.getY()-5);
             TestSpace.bulletManager.addBullet(bullet);
-            availableRounds--;
+            // Don't decrement available rounds to keep it infinite
         }
         //click out of ammo sound?
+    }
+
+    @Override
+    public void incrementRounds() {
+        // Ammo is constantly infinite, so do nothing.
     }
 }

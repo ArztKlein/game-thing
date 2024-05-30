@@ -3,17 +3,17 @@ public class Flamethrower extends Weapon {
     private final static int SWEEP_SPEED = 10;
 
     public Flamethrower(Player player, GameEngine g){
-        super(player, g, "TestSpace/resources/FlamethrowerFired.wav");
+        super(player, g, "TestSpace/resources/FlamethrowerFired.wav", "Flamethrower", "TestSpace/resources/FlameUI.png");
         rateOfFire = 100;
-        ammoCapacity = 1;
-        availableRounds=1;
+        ammoCapacity = 1000;
+        availableRounds = 500;
     }
 
     @Override
     public void fire() {
         // Only fire if rounds are available
         if (availableRounds <= 0) return;
-        // Don't decrement available rounds, to make it infinite.
+        availableRounds--;
 
         double dx = Math.sin(time * SWEEP_SPEED);
 //        double dy = Math.abs(Math.cos(time * SWEEP_SPEED)) + 1;
@@ -41,5 +41,11 @@ public class Flamethrower extends Weapon {
     @Override
     public void stopShooting() {
         super.stopShooting();
+    }
+
+    public void incrementRounds() {
+        if (availableRounds < ammoCapacity) {
+            availableRounds += 5;
+        }
     }
 }

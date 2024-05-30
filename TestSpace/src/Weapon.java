@@ -1,3 +1,4 @@
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Timer;
 
@@ -11,13 +12,18 @@ public abstract class Weapon {
     protected Player player;
     private GameEngine gameEngine;
     GameEngine.AudioClip weaponFired;
-    public Weapon(Player player, GameEngine g, String gunFiredFileName){
+    private String name;
+    private Image sprite;
+
+    public Weapon(Player player, GameEngine g, String gunFiredFileName, String name, String imagePath){
         this.player = player;
         gameEngine = g;
         weaponFired = g.loadAudio(gunFiredFileName);
         x = player.getX();
         y = player.getY();
+        this.name = name;
         this.lastShotTime= 0;
+        this.sprite = GameEngine.loadImage(imagePath);
     }
     public void update(double dt){
         x = player.getX();
@@ -43,6 +49,10 @@ public abstract class Weapon {
 
     public boolean isShooting(){return isShooting;}
 
+    public String getName() {
+        return name;
+    }
+
     public void startShooting(){
         isShooting = true;
         lastShotTime = 0;
@@ -53,4 +63,13 @@ public abstract class Weapon {
 
     public void draw(TestSpace game){}
 
+    public int getAvailableRounds() {
+        return availableRounds;
+    }
+
+    public Image getSprite() {
+        return sprite;
+    }
+
+    public abstract void incrementRounds();
 }

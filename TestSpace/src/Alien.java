@@ -101,8 +101,8 @@ public class Alien {
     }
 
     public double checkCollision(Player player) {
-        double dx = x - player.getX(); //distance between the center of the circle x and the center circle x of enemy
-        double dy = y - player.getY(); //distance between the center of the circle y and the center circle y of enemy
+        double dx = x - player.getX(); //distance between the centre of the circle x and the centre circle x of enemy
+        double dy = y - player.getY(); //distance between the centre of the circle y and the centre circle y of enemy
         return Math.sqrt(dx * dx + dy * dy); //get the magnitude(length from us to enemy)
     }
 

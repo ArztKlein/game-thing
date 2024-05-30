@@ -1,6 +1,6 @@
 public class RocketLauncher extends Weapon{
     public RocketLauncher(Player player, GameEngine g){
-        super(player, g, "TestSpace/resources/RocketLauncherFired.wav");
+        super(player, g, "TestSpace/resources/RocketLauncherFired.wav", "Rocket launcher", "TestSpace/resources/RocketUI.png");
         rateOfFire = 1;
         ammoCapacity = 5;
         availableRounds = 5;
@@ -13,5 +13,12 @@ public class RocketLauncher extends Weapon{
             availableRounds--;
         }
         //click out of ammo sound?
+    }
+
+    @Override
+    public void incrementRounds() {
+        if (availableRounds < ammoCapacity) {
+            availableRounds++;
+        }
     }
 }
