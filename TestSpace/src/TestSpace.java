@@ -136,6 +136,7 @@ public class TestSpace extends GameEngine {
         changeColour(white);
         drawCentredText("Game Over", WIDTH / 2, 200, 80);
         drawCentredText("Score: " + Score.score, WIDTH / 2, 300, 60);
+        drawCentredText("Enter your name", WIDTH / 2, 350, 20);
         restoreLastTransform();
     }
 

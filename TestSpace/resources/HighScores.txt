@@ -1,3 +1,6 @@
+213;Wheately
+108;temmy
+65;Dalek
 49;Luke
 27;Test
 10;Agent 47
@@ -5,6 +8,3 @@
 8;Crash
 7;Donkey Kong
 6;Eggman
-5;Flamingo
-4;Goomba
-3;Hawke
