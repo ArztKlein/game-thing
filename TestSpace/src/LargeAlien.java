@@ -7,18 +7,16 @@ public class LargeAlien extends Alien {
     private static final double SCALE_FACTOR = 2.0;
     double targetY;
     double targetX;
-    private final Image[] laSprites = new Image[4];
+    private Image[] laSprites = new Image[4];
     private Image sprite;
     private int blinkCount = 0;
     private int blinkGap = 0;
 
-    public LargeAlien(double x, double y, Image sprite, GameEngine g) {
+    public LargeAlien(double x, double y, Image[] sprite, GameEngine g) {
         super(x, y, sprite,g);
+        this.laSprites = sprite;
         this.hitpoints = LARGE_ALIEN_HEALTH;
         this.speedY = LARGE_ALIEN_DROP_SPEED;
-        for (int i = 0; i < 4; i++) {
-            laSprites[i] = GameEngine.subImage(sprite, i*29, 0, 29, 37);
-        }
         this.radius = (int) (laSprites[0].getWidth(null) * SCALE_FACTOR); // adjust radius for collision detection
     }
 

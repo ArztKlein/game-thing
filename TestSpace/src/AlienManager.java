@@ -5,9 +5,9 @@ import java.util.List;
 
 public class AlienManager {
     private List<Alien> aliens;
-    private Image alienSprite;
-    private final Image largeAlienChart;
-    private final Image mediumAlienChart;
+    private Image[] alienSprite;
+    private final Image[] largeAlienChart;
+    private final Image[] mediumAlienChart;
     private Player player;
     private double elapsedTime;
     private int wave;
@@ -18,7 +18,7 @@ public class AlienManager {
     private double timeSinceLastAlienSpawn;
     private GameEngine gameEngine;
 
-    public AlienManager(Image alienSprite, Image mediumAlienChart, Image largeAlienChart, Player player, GameEngine g) {
+    public AlienManager(Image[] alienSprite, Image[] mediumAlienChart, Image[] largeAlienChart, Player player, GameEngine g) {
         gameEngine = g;
         this.alienSprite = alienSprite;
         this.aliens = new ArrayList<>();

@@ -12,15 +12,20 @@ public class Alien {
     protected static final double CHASE_SPEED = 80; // Adjust to control the speed at which aliens follow the player
     protected double laneOffsetX; // Offset to keep the formation
     private GameEngine gameEngine;
-    public Alien(double x, double y, Image sprite, GameEngine g) {
+    private final Image[] aSprites;
+    private Image aSprite;
+    private int flowCount = 0;
+    boolean forward = true;
+    public Alien(double x, double y, Image[] sprite, GameEngine g) {
         gameEngine = g;
         this.x = x;
         this.y = y;
         this.hitpoints = 3;
-        this.sprite = sprite;
-        this.radius = sprite.getWidth(null);
+        this.aSprites = sprite;
         this.speedY = DROP_SPEED;
         this.laneOffsetX = Math.random() * 60 - 30; // Random offset to create a tighter group
+
+        this.radius = aSprites[0].getWidth(null);
     }
     public int getHitpoints(){return this.hitpoints;}
 
@@ -59,10 +64,39 @@ public class Alien {
                 y -= CHASE_SPEED * dt;
             }
         }
+
+        if (flowCount < 7) {
+            if (flowCount == 0) {
+                forward = true;
+            }
+            if (forward) {
+                flowCount++;
+            } else {
+                flowCount--;
+            }
+            aSprite = aSprites[0];
+        } else if(flowCount <= 14) {
+            if (forward) {
+                flowCount++;
+            } else {
+                flowCount--;
+            }
+            aSprite = aSprites[1];
+        } else {
+            if (forward) {
+                flowCount++;
+            } else {
+                flowCount--;
+            }
+            aSprite = aSprites[2];
+            if (flowCount == 21) {
+                forward = false;
+            }
+        }
     }
 
     public void draw(Graphics2D g) {
-        g.drawImage(sprite, (int)x, (int)y, null);
+        g.drawImage(aSprite, (int)x, (int)y, null);
     }
 
     public double checkCollision(Player player) {

@@ -62,8 +62,19 @@ public class TestSpace extends GameEngine {
         this.player = new Player(WIDTH / 2, HEIGHT - 75, GameEngine.loadImage("TestSpace/resources/Spaceman.png"), this);
         state = State.PLAYING;
 
+        //Initialize the alien sprites
+        Image[] aSprites = new Image[3];
+        Image[] maSprites = new Image[4];
+        Image[] laSprites = new Image[4];
+        for (int i = 0; i < 3; i++) {
+            aSprites[i] = GameEngine.subImage(loadImage("TestSpace/resources/Flooper.png"), i*40, 0, 40, 40);
+        }
+        for ( int i = 0; i < 4; i++) {
+            maSprites[i] = GameEngine.subImage(loadImage("TestSpace/resources/MedAlien.png"), i*30, 0, 30, 30);
+            laSprites[i] = GameEngine.subImage(loadImage("TestSpace/resources/LargeAlien.png"), i*29, 0, 29, 37);
+        }
         // Initialize the AlienManager
-        alienManager = new AlienManager(loadImage("TestSpace/resources/Alien.png"), loadImage("TestSpace/resources/MedAlien.png"), loadImage("TestSpace/resources/LargeAlien.png"), player, this);
+        alienManager = new AlienManager(aSprites, maSprites, laSprites, player, this);
     }
 
     @Override
