@@ -83,7 +83,6 @@ public class TestSpace extends GameEngine {
                 player.update(dt);
                 bulletManager.updateBullets(dt, alienManager);
                 alienManager.update(dt);
-
                 // Check if player's health is zero and return to main menu if true
                 if (player.isPlayerDead()) {
                     state = State.GAME_OVER;

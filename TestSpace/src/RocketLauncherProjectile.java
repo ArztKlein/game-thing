@@ -3,7 +3,6 @@ import java.util.List;
 import java.util.ArrayList;
 public class RocketLauncherProjectile extends Projectile{
     private final Image projectileSprite;
-    private final Image[] collisionExplosion = new Image[6];
 
     public RocketLauncherProjectile(double x, double y){
         super(x, y);
@@ -12,12 +11,14 @@ public class RocketLauncherProjectile extends Projectile{
         velY = -50;
         accelY = 700;
         damage = 3;
+
     }
 
     @Override
     public void update(double dt) {
         velY -= accelY * dt * (8 * Math.random()+4); //change the velocity based on the acceleration amount over time(dt)
         y += velY * dt; //change the position based on the velocity over time
+
     }
 
     @Override
@@ -37,6 +38,7 @@ public class RocketLauncherProjectile extends Projectile{
         for (Alien alien : alienManager.getAliens()) {
             if (getDistance(alien) < radius) {
                 alien.playHitSound();
+                RocketExplosionAnimation newExplosion = new RocketExplosionAnimation(alien.getX(), alien.getY());
                 //Explosion Sound and Image
                 alien.setHitpoints(damage);
                 if (alien.getHitpoints() == 0) {
