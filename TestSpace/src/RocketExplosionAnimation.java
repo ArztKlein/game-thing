@@ -16,7 +16,7 @@ public class RocketExplosionAnimation {
         //split into 6 frames from 2 row, 3 columns and stored in image[]
         for (int i = 0; i < 3; i++) {
             for(int j = 0; j < 2; j++){
-                int index = i + j;
+                int index = i*2 + j;
                 collisionExplosion[index] = GameEngine.subImage(collisionSprites, (i * frameWidth), (j * frameHeight) ,
                         frameWidth, frameHeight);
             }
@@ -32,7 +32,7 @@ public class RocketExplosionAnimation {
         if(isActive){
             currentFrame++;
             //once all frames have been shown, deactivate animation
-            if (currentFrame >= collisionExplosion.length) {
+            if (currentFrame == collisionExplosion.length) {
                 isActive = false;
             }
         }

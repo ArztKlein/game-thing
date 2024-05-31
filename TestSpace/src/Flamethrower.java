@@ -42,5 +42,9 @@ public class Flamethrower extends Weapon {
         if (availableRounds < ammoCapacity) {
             availableRounds += 5;
         }
+        //To make sure ammo doesn't go over the cap
+        if (availableRounds > ammoCapacity) {
+            availableRounds = ammoCapacity;
+        }
     }
 }
