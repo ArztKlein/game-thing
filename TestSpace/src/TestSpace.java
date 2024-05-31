@@ -179,6 +179,7 @@ public class TestSpace extends GameEngine {
                 scoreState = ScoreState.NULL;
             }
             case NULL -> {
+                stopAudioLoop(backgroundMusic);
                 init();
                 state = State.MAIN_MENU;
             }
