@@ -6,10 +6,10 @@ public class RocketLauncherProjectile extends Projectile{
 
     public RocketLauncherProjectile(double x, double y){
         super(x, y);
-        this.projectileSprite = GameEngine.loadImage("TestSpace/resources/bullet.png"); //doesnt exist yet
+        this.projectileSprite = GameEngine.loadImage("TestSpace/resources/bullet.png");
         radius = projectileSprite.getWidth(null)/2;
         velY = -10;
-        accelY = 200;
+        accelY = 100;
         damage = 5;
     }
     @Override
@@ -19,7 +19,7 @@ public class RocketLauncherProjectile extends Projectile{
     }
     @Override
     public void draw(GameEngine g) {
-        g.drawImage(projectileSprite,(int)x -radius,(int)y-radius, projectileSprite.getWidth(null) ,projectileSprite.getHeight(null));
+        g.drawImage(projectileSprite,x -radius,y-radius, projectileSprite.getWidth(null) ,projectileSprite.getHeight(null));
     }
     @Override
     public boolean isFinished() {
@@ -30,7 +30,7 @@ public class RocketLauncherProjectile extends Projectile{
         List<Alien> deadAliens = new ArrayList<>();
 
         for (Alien alien : alienManager.getAliens()) {
-            if (getDistance(alien) <= radius) {
+            if (getDistance(alien) <= radius+6) {
                 alien.playHitSound();
                 //explosion animation occurs on impact
                 RocketExplosionAnimation newExplosion = new RocketExplosionAnimation(alien.getX(), alien.getY());

@@ -25,7 +25,7 @@ public class RocketExplosionAnimation {
         this.x = x;
         this.y = y;
         isActive = true;
-        currentFrame = 0;
+        currentFrame = -1;
     }
 
     public void update(double dt) {

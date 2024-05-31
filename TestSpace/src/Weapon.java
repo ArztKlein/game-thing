@@ -25,7 +25,7 @@ public abstract class Weapon {
         this.gameEngine = gameEngine;
         this.sprite = GameEngine.loadImage(imagePath);
         weaponFired = gameEngine.loadAudio(gunFiredFileName);
-        emptyClip = gameEngine.loadAudio("TestSpace/resources/emptyClip.wav");
+        emptyClip = gameEngine.loadAudio("TestSpace/resources/EmptyClip.wav");
     }
     public void update(double dt){
         //update the weapon position relative to the player
