@@ -1,15 +1,15 @@
 import java.awt.*;
+import java.util.Random;
 
 public class Alien {
     protected double x, y;
     protected int radius;
     protected int hitpoints;
     protected double speedY;
-    protected Image sprite;
     protected boolean chasingPlayer = false;
-    protected static final double TARGET_Y = 500;
-    protected static final double DROP_SPEED = 50; // Adjust to control the drop speed of aliens
-    protected static final double CHASE_SPEED = 80; // Adjust to control the speed at which aliens follow the player
+    protected static final double TARGET_Y = 375;
+    protected static final double DROP_SPEED = 1200; // Adjust to control the drop speed of aliens
+    protected static final double CHASE_SPEED = 0; // Adjust to control the speed at which aliens follow the player
     protected double laneOffsetX; // Offset to keep the formation
     private GameEngine gameEngine;
     private final Image[] aSprites;
@@ -21,23 +21,23 @@ public class Alien {
         gameEngine = g;
         this.x = x;
         this.y = y;
-        this.hitpoints = 3;
+        this.hitpoints = 2;
         this.aSprites = sprite;
         this.speedY = DROP_SPEED;
         this.laneOffsetX = Math.random() * 60 - 30; // Random offset to create a tighter group
 
-        this.radius = aSprites[0].getWidth(null);
+        this.radius = aSprites[0].getWidth(null)/2;
     }
     public int getHitpoints(){return this.hitpoints;}
 
     public void setHitpoints(int damage){
-        if(hitpoints-damage>0){
+        System.out.println(hitpoints);
+        System.out.println(damage);
+        hitpoints -= damage;
+        if(hitpoints<=0){
             hitpoints =0;
         }
-        else{
-            hitpoints -= damage;
-        }
-
+        System.out.println(hitpoints);
     }
     public double getX(){return this.x;}
     public double getY(){return this.y;}
@@ -97,7 +97,7 @@ public class Alien {
     }
 
     public void draw(Graphics2D g) {
-        g.drawImage(aSprite, (int)x, (int)y, null);
+        g.drawImage(aSprite, (int)(x-radius), (int)(y-radius), null);
     }
 
     public double checkCollision(Player player) {

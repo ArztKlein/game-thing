@@ -8,7 +8,7 @@ public class MachineGunProjectile extends Projectile{
     public MachineGunProjectile(double x, double y){
         super(x, y);
         sprite = GameEngine.loadImage("TestSpace/resources/bullet.png");
-        radius = sprite.getWidth(null);
+        radius = sprite.getWidth(null)/4;
         velY = -400;
         accelY = 100;
         damage = 1;
@@ -20,7 +20,7 @@ public class MachineGunProjectile extends Projectile{
     }
     @Override
     public void draw(GameEngine g) {
-        g.drawImage(sprite,(int)x,(int)y, (double) sprite.getWidth(null) /2 , (double) sprite.getHeight(null) /2);
+        g.drawImage(sprite,(int)x-radius,(int)y-radius, (double) sprite.getWidth(null) /2 , (double) sprite.getHeight(null) /2);
     }
 
     @Override
@@ -28,7 +28,7 @@ public class MachineGunProjectile extends Projectile{
         List<Alien> deadAliens = new ArrayList<>();
 
         for (Alien alien : alienManager.getAliens()) {
-            if (getDistance(alien) < radius) {
+            if (getDistance(alien) <= (radius+alien.getRadius())) {
                 alien.playHitSound();
                 alien.setHitpoints(damage);
                 if (alien.getHitpoints() == 0) {

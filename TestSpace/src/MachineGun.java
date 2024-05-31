@@ -14,7 +14,6 @@ public class MachineGun extends Weapon {
             TestSpace.bulletManager.addBullet(bullet);
             // Don't decrement available rounds to keep it infinite
         }
-        //click out of ammo sound?
     }
 
     @Override

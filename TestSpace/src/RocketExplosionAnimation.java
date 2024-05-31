@@ -31,14 +31,13 @@ public class RocketExplosionAnimation {
         if(isActive){
             currentFrame++;
             if (currentFrame >= collisionExplosion.length) {
-                //currentFrame = 6;
                 isActive = false;
             }
         }
     }
     public void draw(GameEngine g) {
         if(isActive){
-            g.drawImage(collisionExplosion[currentFrame], x, y, 3*frameWidth, 3*frameHeight);
+            g.drawImage(collisionExplosion[currentFrame], x-(3*frameWidth/2), y-(3*frameHeight/2), 3*frameWidth, 3*frameHeight);
         }
     }
     public boolean isFinished(){

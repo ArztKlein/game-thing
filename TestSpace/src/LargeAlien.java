@@ -1,9 +1,9 @@
 import java.awt.*;
 
 public class LargeAlien extends Alien {
-    private static final int LARGE_ALIEN_HEALTH = 7; // health of a Large alien
-    private static final double LARGE_ALIEN_DROP_SPEED = 50;
-    private static final double LARGE_ALIEN_CHASE_SPEED = 70;
+    private static final int LARGE_ALIEN_HEALTH = 5; // health of a Large alien
+    private static final double LARGE_ALIEN_DROP_SPEED = 90;
+    private static final double LARGE_ALIEN_CHASE_SPEED = 60;
     private static final double SCALE_FACTOR = 2.0;
     double targetY;
     double targetX;
@@ -17,7 +17,7 @@ public class LargeAlien extends Alien {
         this.laSprites = sprite;
         this.hitpoints = LARGE_ALIEN_HEALTH;
         this.speedY = LARGE_ALIEN_DROP_SPEED;
-        this.radius = (int) (laSprites[0].getWidth(null) * SCALE_FACTOR); // adjust radius for collision detection
+        this.radius = (int) ((laSprites[0].getWidth(null) * SCALE_FACTOR)/2); // adjust radius for collision detection
     }
 
     @Override
@@ -70,6 +70,6 @@ public class LargeAlien extends Alien {
     public void draw(Graphics2D g) {
         int width = (laSprites[1].getWidth(null));
         int height = (laSprites[1].getHeight(null));
-        g.drawImage(sprite, (int) x, (int) y, (int) (width * SCALE_FACTOR), (int) (height * SCALE_FACTOR), null);
+        g.drawImage(sprite, (int) x -radius, (int) y -radius, (int) (width * SCALE_FACTOR), (int) (height * SCALE_FACTOR), null);
     }
 }

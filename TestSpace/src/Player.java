@@ -35,7 +35,7 @@ public class Player {
 
     public void draw(TestSpace game) {
         Graphics2D g = game.mGraphics;
-        g.drawImage(sprite, (int)x, (int)y, sprite.getWidth(null)*2, sprite.getHeight(null)*2, null);
+        g.drawImage(sprite, (int)x-radius*2, (int)y-radius*2, sprite.getWidth(null)*2, sprite.getHeight(null)*2, null);
         selectedWeapon.draw(game);
     }
 

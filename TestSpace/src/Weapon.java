@@ -14,6 +14,7 @@ public abstract class Weapon {
     GameEngine.AudioClip weaponFired;
     private String name;
     private Image sprite;
+    private boolean audioPlaying;
 
     public Weapon(Player player, GameEngine g, String gunFiredFileName, String name, String imagePath){
         this.player = player;
@@ -24,6 +25,7 @@ public abstract class Weapon {
         this.name = name;
         this.lastShotTime= 0;
         this.sprite = GameEngine.loadImage(imagePath);
+        audioPlaying = false;
     }
     public void update(double dt){
         x = player.getX();
@@ -35,12 +37,14 @@ public abstract class Weapon {
 
             if (lastShotTime == 0) { // Fire immediately on the first shot
                 fire();
-                gameEngine.playAudio(weaponFired);
+                if(this instanceof Flamethrower){if(!audioPlaying){audioPlaying =true; gameEngine.startAudioLoop(weaponFired);}}
+                else{gameEngine.playAudio(weaponFired);}
                 lastShotTime = currentTime;
             }
             else if (timeSinceLastShot >= 1000.0 / rateOfFire) {
                 fire();
-                gameEngine.playAudio(weaponFired);
+                if(this instanceof Flamethrower){if(!audioPlaying){audioPlaying =true; gameEngine.startAudioLoop(weaponFired);}}
+                else{gameEngine.playAudio(weaponFired);}
                 lastShotTime = currentTime;
             }
         }
@@ -59,6 +63,8 @@ public abstract class Weapon {
     }
     public void stopShooting(){
         isShooting = false;
+        audioPlaying = false;
+        gameEngine.stopAudioLoop(weaponFired);
     }
 
     public void draw(TestSpace game){}
