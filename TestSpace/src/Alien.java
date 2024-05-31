@@ -1,5 +1,4 @@
 import java.awt.*;
-import java.util.Random;
 
 public class Alien {
     protected double x, y;
@@ -7,9 +6,9 @@ public class Alien {
     protected int hitpoints;
     protected double speedY;
     protected boolean chasingPlayer = false;
-    protected static final double TARGET_Y = 375;
-    protected static final double DROP_SPEED = 1200; // Adjust to control the drop speed of aliens
-    protected static final double CHASE_SPEED = 0; // Adjust to control the speed at which aliens follow the player
+    protected static final double TARGET_Y = 500;
+    protected static final double DROP_SPEED = 50; // Adjust to control the drop speed of aliens
+    protected static final double CHASE_SPEED = 80; // Adjust to control the speed at which aliens follow the player
     protected double laneOffsetX; // Offset to keep the formation
     private GameEngine gameEngine;
     private final Image[] aSprites;
@@ -21,7 +20,7 @@ public class Alien {
         gameEngine = g;
         this.x = x;
         this.y = y;
-        this.hitpoints = 2;
+        setHitpoints(2);
         this.aSprites = sprite;
         this.speedY = DROP_SPEED;
         this.laneOffsetX = Math.random() * 60 - 30; // Random offset to create a tighter group
@@ -29,12 +28,12 @@ public class Alien {
         this.radius = aSprites[0].getWidth(null)/2;
     }
     public int getHitpoints(){return this.hitpoints;}
-
-    public void setHitpoints(int damage){
+    public void setHitpoints(int hp){ this.hitpoints = hp;}
+    public void takeDamage(int damage){
         System.out.println(hitpoints);
-        System.out.println(damage);
         hitpoints -= damage;
         if(hitpoints<=0){
+            System.out.println(hitpoints);
             hitpoints =0;
         }
         System.out.println(hitpoints);

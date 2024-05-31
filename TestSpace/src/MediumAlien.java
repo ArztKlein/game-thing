@@ -1,9 +1,9 @@
 import java.awt.*;
 
 public class MediumAlien extends Alien {
-    private static final int MEDIUM_ALIEN_HEALTH = 4; // health of a medium alien
-    private static final double MEDIUM_ALIEN_DROP_SPEED = 100;
-    private static final double MEDIUM_ALIEN_CHASE_SPEED = 60;
+    private static final int MEDIUM_ALIEN_HEALTH = 6; // health of a medium alien
+    private static final double MEDIUM_ALIEN_DROP_SPEED = 50;
+    private static final double MEDIUM_ALIEN_CHASE_SPEED = 70;
     private static final double SCALE_FACTOR = 1.5;
     private Image[] maSprites = new Image[4];
     private Image sprite;
@@ -14,7 +14,7 @@ public class MediumAlien extends Alien {
     public MediumAlien(double x, double y, Image[] sprite, GameEngine g) {
         super(x, y, sprite, g);
         this.maSprites = sprite;
-        this.hitpoints = MEDIUM_ALIEN_HEALTH;
+        setHitpoints(MEDIUM_ALIEN_HEALTH);
         this.speedY = MEDIUM_ALIEN_DROP_SPEED;
         this.radius = (int) ((maSprites[0].getWidth(null) * SCALE_FACTOR)/2); // adjust radius for collision detection
     }

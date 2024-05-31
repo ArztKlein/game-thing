@@ -1,5 +1,4 @@
 import java.awt.*;
-import java.awt.image.ImageObserver;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,8 +8,8 @@ public class MachineGunProjectile extends Projectile{
         super(x, y);
         sprite = GameEngine.loadImage("TestSpace/resources/bullet.png");
         radius = sprite.getWidth(null)/4;
-        velY = -400;
-        accelY = 100;
+        velY = -500; //initial speed in the vertical direction
+        accelY = 120; //speed the bullet up for visual effect
         damage = 1;
     }
     @Override
@@ -20,31 +19,35 @@ public class MachineGunProjectile extends Projectile{
     }
     @Override
     public void draw(GameEngine g) {
-        g.drawImage(sprite,(int)x-radius,(int)y-radius, (double) sprite.getWidth(null) /2 , (double) sprite.getHeight(null) /2);
+        g.drawImage(sprite,x-radius,y-radius, (double) sprite.getWidth(null) /2 , (double) sprite.getHeight(null) /2);
     }
-
     @Override
     public boolean checkCollision(AlienManager alienManager){
         List<Alien> deadAliens = new ArrayList<>();
-
+        //check the current projectile against all aliens
         for (Alien alien : alienManager.getAliens()) {
+            //circle to circle collision
             if (getDistance(alien) <= (radius+alien.getRadius())) {
                 alien.playHitSound();
-                alien.setHitpoints(damage);
+                alien.takeDamage(damage);
                 if (alien.getHitpoints() == 0) {
+                    //if the alien dies, add it to a list for later deletion
                     deadAliens.add(alien);
                 }
+                break;
             }
         }
+        //if there are aliens in the list, delete them
         if (!deadAliens.isEmpty()) {
             alienManager.getAliens().removeAll(deadAliens);
+            //increase player score, and a chance at an ammo drop
             Score.score += deadAliens.size();
             Player.getAmmo();
             return true;
         }
         return false;
     }
-
+    //this is the y value of the point where each bullet dies
     @Override
     public boolean isFinished() {
         return y < 250;

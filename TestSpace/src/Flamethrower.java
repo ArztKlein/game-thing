@@ -11,15 +11,10 @@ public class Flamethrower extends Weapon {
 
     @Override
     public void fire() {
-        // Only fire if rounds are available
-        if (availableRounds <= 0) return;
-        availableRounds--;
-
         double dx = Math.sin(time * SWEEP_SPEED);
-//        double dy = Math.abs(Math.cos(time * SWEEP_SPEED)) + 1;
-
-        Projectile bullet = new FlamethrowerProjectile(player.getX()+5, player.getY()-5, dx);
+        Projectile bullet = new FlamethrowerProjectile(player.getX(), player.getY(), dx);
         TestSpace.bulletManager.addBullet(bullet);
+        availableRounds--;
     }
 
     @Override
@@ -45,7 +40,7 @@ public class Flamethrower extends Weapon {
 
     public void incrementRounds() {
         if (availableRounds < ammoCapacity) {
-            availableRounds += 5;
+            availableRounds += 8;
         }
     }
 }

@@ -9,13 +9,11 @@ public class MachineGun extends Weapon {
 
     @Override
     public void fire() {
-        if(availableRounds>0){
-            Projectile bullet = new MachineGunProjectile(player.getX()+5, player.getY()-5);
-            TestSpace.bulletManager.addBullet(bullet);
-            // Don't decrement available rounds to keep it infinite
-        }
+        //create a bullet and add it to the bullet manager
+        Projectile bullet = new MachineGunProjectile(player.getX(), player.getY());
+        TestSpace.bulletManager.addBullet(bullet);
+        // Don't decrement available rounds to keep it infinite
     }
-
     @Override
     public void incrementRounds() {
         // Ammo is constantly infinite, so do nothing.

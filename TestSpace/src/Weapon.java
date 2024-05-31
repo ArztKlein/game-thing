@@ -1,6 +1,4 @@
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.Timer;
 
 public abstract class Weapon {
     protected int rateOfFire;
@@ -10,37 +8,44 @@ public abstract class Weapon {
     protected double lastShotTime;
     protected boolean isShooting;
     protected Player player;
-    private GameEngine gameEngine;
-    GameEngine.AudioClip weaponFired;
+    protected GameEngine gameEngine;
+    private GameEngine.AudioClip weaponFired;
+    private GameEngine.AudioClip emptyClip;
+    private boolean audioPlaying;
     private String name;
     private Image sprite;
-    private boolean audioPlaying;
 
-    public Weapon(Player player, GameEngine g, String gunFiredFileName, String name, String imagePath){
-        this.player = player;
-        gameEngine = g;
-        weaponFired = g.loadAudio(gunFiredFileName);
+    public Weapon(Player player, GameEngine gameEngine, String gunFiredFileName, String name, String imagePath){
         x = player.getX();
         y = player.getY();
+        audioPlaying = false;
         this.name = name;
         this.lastShotTime= 0;
+        this.player = player;
+        this.gameEngine = gameEngine;
         this.sprite = GameEngine.loadImage(imagePath);
-        audioPlaying = false;
+        weaponFired = gameEngine.loadAudio(gunFiredFileName);
+        emptyClip = gameEngine.loadAudio("TestSpace/resources/emptyClip.wav");
     }
     public void update(double dt){
+        //update the weapon position relative to the player
         x = player.getX();
         y = player.getY();
-
+        //if the gun is shooting and there is ammo available then a shot should be fired
         if (isShooting && availableRounds > 0) {
+            //get the difference between now and when the last shot was in milliseconds
             double currentTime = System.currentTimeMillis();
             double timeSinceLastShot = currentTime - lastShotTime;
-
-            if (lastShotTime == 0) { // Fire immediately on the first shot
+            //if lastshottime is zero, firing has just started so fire a bullet immediately
+            if (lastShotTime == 0) {
+                //fire -> creates a bullet
                 fire();
+                //play audioclip depending on weapon type, if flamethrower is active, loop the audioclip if no clip is playing
                 if(this instanceof Flamethrower){if(!audioPlaying){audioPlaying =true; gameEngine.startAudioLoop(weaponFired);}}
                 else{gameEngine.playAudio(weaponFired);}
                 lastShotTime = currentTime;
             }
+            //if we are already firing, the next shot can be fire when the time since the last shot exceeds the rate of fire in milliseconds
             else if (timeSinceLastShot >= 1000.0 / rateOfFire) {
                 fire();
                 if(this instanceof Flamethrower){if(!audioPlaying){audioPlaying =true; gameEngine.startAudioLoop(weaponFired);}}
@@ -48,26 +53,27 @@ public abstract class Weapon {
                 lastShotTime = currentTime;
             }
         }
+        //if the clip is empty play sound
+        else if(isShooting && availableRounds == 0){gameEngine.playAudio(emptyClip);}
+
     }
     public abstract void fire();
-
-    public boolean isShooting(){return isShooting;}
+    public abstract void incrementRounds();
+    public void draw(TestSpace game){};
 
     public String getName() {
         return name;
     }
-
     public void startShooting(){
         isShooting = true;
         lastShotTime = 0;
     }
+    //stop shooting and stop audio loop
     public void stopShooting(){
         isShooting = false;
         audioPlaying = false;
         gameEngine.stopAudioLoop(weaponFired);
     }
-
-    public void draw(TestSpace game){}
 
     public int getAvailableRounds() {
         return availableRounds;
@@ -77,5 +83,7 @@ public abstract class Weapon {
         return sprite;
     }
 
-    public abstract void incrementRounds();
+    public boolean isShooting() {
+        return isShooting;
+    }
 }

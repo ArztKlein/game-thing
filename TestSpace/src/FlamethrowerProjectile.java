@@ -1,7 +1,6 @@
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Iterator;
 
 public class FlamethrowerProjectile extends Projectile {
     private final static int SPEED = 200;
@@ -15,6 +14,7 @@ public class FlamethrowerProjectile extends Projectile {
         accelY = 10;
         radius = 5;
         velY = SPEED;
+        damage = 3;
     }
 
     @Override
@@ -44,7 +44,7 @@ public class FlamethrowerProjectile extends Projectile {
         for (Alien alien : alienManager.getAliens()) {
             if (getDistance(alien) < radius) {
                 alien.playHitSound();
-                alien.setHitpoints(damage);
+                alien.takeDamage(damage);
                 if (alien.getHitpoints() == 0) {
                     deadAliens.add(alien);
                 }

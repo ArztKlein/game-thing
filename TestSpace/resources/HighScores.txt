@@ -1,10 +1,10 @@
 1786;Sami
+625;luke
+521;Luke
+469;Luke
+353;Anon
 213;Wheately
 108;temmy
 65;Dalek
+64;Luke
 49;Luke
-27;Test
-10;Agent 47
-9;Baldur
-8;Crash
-7;Donkey Kong

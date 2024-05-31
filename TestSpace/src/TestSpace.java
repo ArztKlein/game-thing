@@ -92,6 +92,7 @@ public class TestSpace extends GameEngine {
                 break;
             case GAME_OVER:
                 if (isWeapon) {
+                   player.stopShooting();
                     Player.clearWeapons();
                     isWeapon = false;
                 }
@@ -238,19 +239,6 @@ public class TestSpace extends GameEngine {
                 }
                 case (KeyEvent.VK_SPACE) -> {
                     player.stopShooting();
-                }
-            }
-        }
-    }
-
-    @Override
-    public void keyTyped(KeyEvent event) {
-        if (state == State.PLAYING) {
-            switch (event.getKeyCode()) {
-                case (KeyEvent.VK_SPACE) -> {
-                    if (!player.isShooting()) {
-                        player.startShooting();
-                    }
                 }
             }
         }

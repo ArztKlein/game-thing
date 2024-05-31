@@ -7,30 +7,24 @@ public class RocketLauncherProjectile extends Projectile{
     public RocketLauncherProjectile(double x, double y){
         super(x, y);
         this.projectileSprite = GameEngine.loadImage("TestSpace/resources/bullet.png"); //doesnt exist yet
-        radius = projectileSprite.getWidth(null);
+        radius = projectileSprite.getWidth(null)/2;
         velY = -10;
         accelY = 200;
-        damage = 3;
-
+        damage = 5;
     }
-
     @Override
     public void update(double dt) {
         velY -= accelY * dt * (8 * Math.random()+4); //change the velocity based on the acceleration amount over time(dt)
         y += velY * dt; //change the position based on the velocity over time
-
     }
-
     @Override
     public void draw(GameEngine g) {
-        g.drawImage(projectileSprite,(int)x -10,(int)y-10, (int) (projectileSprite.getWidth(null) ),(int) (projectileSprite.getHeight(null) ));
+        g.drawImage(projectileSprite,(int)x -radius,(int)y-radius, projectileSprite.getWidth(null) ,projectileSprite.getHeight(null));
     }
-
     @Override
     public boolean isFinished() {
         return y < 0;
     }
-
     @Override
     public boolean checkCollision(AlienManager alienManager){
         List<Alien> deadAliens = new ArrayList<>();
@@ -38,15 +32,16 @@ public class RocketLauncherProjectile extends Projectile{
         for (Alien alien : alienManager.getAliens()) {
             if (getDistance(alien) <= radius) {
                 alien.playHitSound();
+                //explosion animation occurs on impact
                 RocketExplosionAnimation newExplosion = new RocketExplosionAnimation(alien.getX(), alien.getY());
-                //Explosion Sound and Image
-                alien.setHitpoints(damage);
+                alien.takeDamage(damage);
                 if (alien.getHitpoints() == 0) {
                     deadAliens.add(alien);
                 }
                 for (Alien nearbyAlien : alienManager.getAliens()) {
+                    //check a radius around the projectile and damage them too
                     if (getDistance(nearbyAlien) <= 3 * radius) {
-                        nearbyAlien.setHitpoints(damage);
+                        nearbyAlien.takeDamage(damage);
                         if (nearbyAlien.getHitpoints() == 0) {
                             deadAliens.add(nearbyAlien);
                         }
