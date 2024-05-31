@@ -1,6 +1,3 @@
-import java.awt.*;
-import java.util.Iterator;
-
 public abstract class Projectile
 {
     protected double x, y;
@@ -23,49 +20,12 @@ public abstract class Projectile
 
     public abstract boolean isFinished();
 
-    public void setRadius(int radius){
-        this.radius = radius;
-    }
-
-    public void setDamage(int damage) {
-        this.damage = damage;
-    }
-
-    public void setVelX(double velX) {
-        this.velX = velX;
-    }
-
-    public void setVelY(double velY) {
-        this.velY = velY;
-    }
-
-    public void setAccelY(double accelY) {
-        this.accelY = accelY;
-    }
-
     public double getX() {
         return x;
     }
 
     public double getY(){
         return y;
-    }
-    public int getDamage(){return this.damage;}
-
-    public double getVelX() {
-        return velX;
-    }
-
-    public double getAccelY() {
-        return accelY;
-    }
-
-    public double getVelY() {
-        return velY;
-    }
-
-    public int getRadius() {
-        return radius;
     }
 
     public void setX(double x) {

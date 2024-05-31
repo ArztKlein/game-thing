@@ -5,13 +5,13 @@ public class Flamethrower extends Weapon {
     public Flamethrower(Player player, GameEngine g){
         super(player, g, "TestSpace/resources/FlamethrowerFired.wav", "Flamethrower", "TestSpace/resources/FlameUI.png");
         rateOfFire = 100;
-        ammoCapacity = 1000;
-        availableRounds = 500;
+        ammoCapacity = 600;
+        availableRounds = 600;
     }
 
     @Override
     public void fire() {
-        double dx = Math.sin(time * SWEEP_SPEED);
+        double dx = Math.sin(time * SWEEP_SPEED)/4;
         Projectile bullet = new FlamethrowerProjectile(player.getX(), player.getY(), dx);
         TestSpace.bulletManager.addBullet(bullet);
         availableRounds--;
@@ -40,7 +40,7 @@ public class Flamethrower extends Weapon {
 
     public void incrementRounds() {
         if (availableRounds < ammoCapacity) {
-            availableRounds += 8;
+            availableRounds += 5;
         }
     }
 }

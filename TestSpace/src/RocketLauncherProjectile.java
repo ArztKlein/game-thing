@@ -8,7 +8,7 @@ public class RocketLauncherProjectile extends Projectile{
         super(x, y);
         this.projectileSprite = GameEngine.loadImage("TestSpace/resources/bullet.png");
         radius = projectileSprite.getWidth(null)/2;
-        velY = -10;
+        velY = -200;
         accelY = 100;
         damage = 5;
     }
@@ -40,7 +40,7 @@ public class RocketLauncherProjectile extends Projectile{
                 }
                 for (Alien nearbyAlien : alienManager.getAliens()) {
                     //check a radius around the projectile and damage them too
-                    if (getDistance(nearbyAlien) <= 3 * radius) {
+                    if (getDistance(nearbyAlien) <= 6 * radius) {
                         nearbyAlien.takeDamage(damage);
                         if (nearbyAlien.getHitpoints() == 0) {
                             deadAliens.add(nearbyAlien);

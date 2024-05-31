@@ -2,7 +2,7 @@ public class MachineGun extends Weapon {
 
     public MachineGun(Player player, GameEngine g){
         super(player, g, "TestSpace/resources/MachineGunFired.wav", "Machine gun", "TestSpace/resources/BulletUI.png");
-        rateOfFire = 10;
+        rateOfFire = 20;
         ammoCapacity = Integer.MAX_VALUE;
         availableRounds = Integer.MAX_VALUE;
     }

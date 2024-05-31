@@ -7,7 +7,7 @@ public class RocketLauncher extends Weapon{
     }
     @Override
     public void fire() {
-            Projectile bullet = new RocketLauncherProjectile(player.getX()+2, player.getY()-5);
+            Projectile bullet = new RocketLauncherProjectile(player.getX(), player.getY());
             TestSpace.bulletManager.addBullet(bullet);
             availableRounds--;
           }

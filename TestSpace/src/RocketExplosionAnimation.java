@@ -1,5 +1,4 @@
 import java.awt.*;
-import java.util.List;
 
 public class RocketExplosionAnimation {
     private final Image collisionSprites;
@@ -40,7 +39,7 @@ public class RocketExplosionAnimation {
     }
     public void draw(GameEngine g) {
         if(isActive){
-            g.drawImage(collisionExplosion[currentFrame], x-((double) (3 * frameWidth) /2), y-((double) (3 * frameHeight) /2), 3*frameWidth, 3*frameHeight);
+            g.drawImage(collisionExplosion[currentFrame], x-((double) (3 * frameWidth)), y-((double) (3 * frameHeight)), 6*frameWidth, 6*frameHeight);
         }
     }
     public boolean isFinished(){
